@@ -1,1 +1,17 @@
-
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    health:
+      show-details: always
+      show-components: always
+      probes:
+        enabled: true
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: prometheus, metrics, health, shutdown, beans
