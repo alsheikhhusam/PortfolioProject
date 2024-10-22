@@ -26,6 +26,6 @@ jobs:
       - name: Build and Push to GHCR
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ../../my-portfolio/Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/portfolio:latest
