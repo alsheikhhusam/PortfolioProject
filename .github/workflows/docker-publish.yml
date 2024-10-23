@@ -34,7 +34,6 @@ jobs:
           context: ./my-portfolio/
           push: true
           load: true
-          progress: plain
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: 
