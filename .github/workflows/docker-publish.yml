@@ -40,7 +40,7 @@ jobs:
 
       - name: Test App From Inside Container
         run: |
-          docker exec $(docker ps -q --filter "name=web") curl -f http://localhost:3000 || exit 1
+          docker exec $(docker ps -q --filter "name=portfolio-web") curl -f http://localhost:3000 || exit 1
 
       - name: Push Image to GHCR with Docker Compose
         run: docker-compose push
