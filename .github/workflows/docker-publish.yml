@@ -39,13 +39,17 @@ jobs:
       - name: Verify Service Health Status
         run: |
           CONTAINER_ID=$(docker ps -q --filter "name=portfolio-web")
+          if [ -z "$CONTAINER_ID" ]; then
+            echo "Error: No running container found for portfolio-web!"
+            exit 1
+          fi
           HEALTH_STATUS=$(docker inspect --format='{{json .State.Health.Status}}' $CONTAINER_ID)
           echo "Health status: $HEALTH_STATUS"
           if [ "$HEALTH_STATUS" != '"healthy"' ]; then
             echo "Service is not healthy!"
             exit 1
-          fi
-  
+          fi  
+          
       - name: Check Service Logs
         run: |
           docker logs $(docker ps -q --filter "name=portfolio-web")
