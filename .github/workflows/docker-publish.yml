@@ -43,4 +43,5 @@ jobs:
           GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
 
       - name: Stop and Clean Up
+        working-directory: ./my-portfolio
         run: docker-compose down      
