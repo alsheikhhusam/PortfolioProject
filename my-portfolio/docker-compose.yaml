@@ -11,3 +11,9 @@ services:
     environment:
       - NODE_ENV=production
     command: npm run start
+    healthcheck:  # Add a health check for the service
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
