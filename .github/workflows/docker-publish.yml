@@ -31,12 +31,23 @@ jobs:
           password: ${{ secrets.GHCR_TOKEN }} # Use PAT from GitHub Secrets
 
       - name: Build and Start Services with Docker Compose
+        working-directory: ./my-portfolio
         run: |
-          docker-compose -f ./my-portfolio/docker-compose.yaml up --build -d
+          docker-compose up --build -d
           sleep 30 # Wait for services to start
 
-      - name: Verify Services are Running
-        run: docker ps
+          - name: Verify Service Health Status
+          run: |
+            docker-compose ps
+            docker inspect --format='{{json .State.Health.Status}}' $(docker ps -q --filter "name=portfolio-web")
+  
+      - name: Check Service Logs
+        run: |
+          docker logs $(docker ps -q --filter "name=portfolio-web")
+  
+      - name: Verify Open Ports
+        run: |
+          docker ps --filter "name=portfolio-web" --format "table {{.Names}}\t{{.Ports}}"
 
       - name: Push Image to GHCR with Docker Compose
         run: docker-compose push
