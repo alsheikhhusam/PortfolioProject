@@ -18,8 +18,10 @@ jobs:
 
       - name: Install Docker Compose Plugin
         run: |
-          apt-get update && apt-get install -y docker-compose-plugin
-          
+          sudo apt-get update
+          sudo apt-get install -y docker-compose-plugin
+      
+
       - name: Log in to GHCR
         uses: docker/login-action@v2
         with:
