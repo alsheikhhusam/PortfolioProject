@@ -36,10 +36,15 @@ jobs:
           docker-compose up --build -d
           sleep 30 # Wait for services to start
 
-          - name: Verify Service Health Status
-          run: |
-            docker-compose up --build -d
-            sleep 30 # Wait for services to start
+      - name: Verify Service Health Status
+        run: |
+          CONTAINER_ID=$(docker ps -q --filter "name=portfolio-web")
+          HEALTH_STATUS=$(docker inspect --format='{{json .State.Health.Status}}' $CONTAINER_ID)
+          echo "Health status: $HEALTH_STATUS"
+          if [ "$HEALTH_STATUS" != '"healthy"' ]; then
+            echo "Service is not healthy!"
+            exit 1
+          fi
   
       - name: Check Service Logs
         run: |
