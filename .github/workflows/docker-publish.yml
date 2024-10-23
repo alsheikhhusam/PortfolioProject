@@ -38,8 +38,9 @@ jobs:
 
           - name: Verify Service Health Status
           run: |
+            docker-compose up --build -d
+            sleep 30 # Wait for services to start
             docker-compose ps
-            docker inspect --format='{{json .State.Health.Status}}' $(docker ps -q --filter "name=portfolio-web")
   
       - name: Check Service Logs
         run: |
