@@ -33,10 +33,11 @@ jobs:
       - name: Build and Start Services with Docker Compose
         run: |
           docker-compose -f ./my-portfolio/docker-compose.yaml up --build -d
-          sleep 15 # Wait for services to start
+          sleep 30 # Wait for services to start
 
-      - name: Verify Services are Running
-        run: docker ps
+      - name: Verify services are running
+        run: |
+          curl -f http://portfolio-web:3000 || exit 1
 
       - name: Run Tests
         run: |
