@@ -20,11 +20,15 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install
+        working-directory: ./my-portfolio
       
-      - name: Run Linter & Tests
-        run: |
-          yarn lint
-          yarn test
+      - name: Run Linter
+        run: yarn lint
+        working-directory: ./my-portfolio
+
+      - name: Run Tests
+        run: yarn test
+        working-directory: ./my-portfolio
 
       - name: Log in to GHCR
         uses: docker/login-action@v2
