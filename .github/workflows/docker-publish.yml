@@ -23,7 +23,6 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           /usr/local/bin/docker-compose version
       
-
       - name: Log in to GHCR
         uses: docker/login-action@v2
         with:
@@ -33,7 +32,7 @@ jobs:
 
       - name: Build and Start Services with Docker Compose
         run: |
-          docker-compose up --build -d
+          docker-compose -f ./my-portfolio/docker-compose.yaml up --build -d
           sleep 15 # Wait for services to start
 
       - name: Verify Services are Running
