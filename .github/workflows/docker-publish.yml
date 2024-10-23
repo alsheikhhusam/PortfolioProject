@@ -50,6 +50,7 @@ jobs:
           docker ps --filter "name=portfolio-web" --format "table {{.Names}}\t{{.Ports}}"
 
       - name: Push Image to GHCR with Docker Compose
+        working-directory: ./my-portfolio
         run: docker-compose push
         env:
           GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
