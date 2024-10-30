@@ -69,7 +69,7 @@ jobs:
           docker-compose up -d
           sleep 30
 
-      #! Add verify service health here - Bug#1
+      #! Add verify service health here - https://github.com/alsheikhhusam/PortfolioProject/issues/1
 
       - name: Push Image to GHCR with Docker Compose
         working-directory: ./my-portfolio
