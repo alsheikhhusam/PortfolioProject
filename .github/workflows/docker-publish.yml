@@ -26,20 +26,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }} # Use PAT from GitHub Secrets
 
-      - name: Authenticate with Google Cloud
-        uses: google-github-actions/auth@v1
-        with:
-          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
-
-      - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          project_id: "portfolioproject-7841"
-
-      - name: Authenticate Docker with GCP Artifact Registry
-        run: |
-          gcloud auth configure-docker us-central1-docker.pkg.dev
-
       - name: Build and Push to GHCR
         uses: docker/build-push-action@v5
         with:
@@ -51,6 +37,20 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/portfolio:${{ github.ref_name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+  
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: "portfolioproject-7841"
+
+      - name: Authenticate Docker with GCP Artifact Registry
+        run: |
+          gcloud auth configure-docker us-central1-docker.pkg.dev
   
       - name: Build and Push to GCR
         uses: docker/build-push-action@v5
