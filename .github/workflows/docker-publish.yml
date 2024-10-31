@@ -60,7 +60,6 @@ jobs:
           tags: |
             us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:latest
             us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ github.sha }}
-            us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}:${{ github.ref_name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
