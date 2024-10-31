@@ -48,25 +48,32 @@ jobs:
           SANITIZED_BRANCH_NAME=$(echo "$BRANCH_NAME" | tr -cd '[:alnum:]-')
           echo "branch_tag=$SANITIZED_BRANCH_NAME" >> $GITHUB_ENV
 
-      - name: Build and Push to GHCR
+      - name: Build Docker Image
         uses: docker/build-push-action@v5
         with:
           context: ./my-portfolio
-          push: true
+          push: false
           tags: |
             ghcr.io/${{ github.repository_owner }}/portfolio:latest
             ghcr.io/${{ github.repository_owner }}/portfolio:${{ github.sha }}
             ghcr.io/${{ github.repository_owner }}/portfolio:${{ env.branch_tag }}
-  
-      - name: Build and Push to GAR
-        uses: docker/build-push-action@v5
-        with:
-          context: ./my-portfolio
-          push: true
-          tags: |
             us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:latest
             us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ github.sha }}
             us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ env.branch_tag }}
+          cache-from: type=gha,mode=max
+          cache-to: type=gha,mode=max
+
+      - name: Push to GHCR
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/portfolio:latest
+          docker push ghcr.io/${{ github.repository_owner }}/portfolio:${{ github.sha }}
+          docker push ghcr.io/${{ github.repository_owner }}/portfolio:${{ env.branch_tag }}
+
+      - name: Push to GAR
+        run: |
+          docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:latest
+          docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ github.sha }}
+          docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ env.branch_tag }}
 
   deploy:
     runs-on: ubuntu-latest
