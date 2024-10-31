@@ -26,6 +26,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }} # Use PAT from GitHub Secrets
 
+      - name: Log in to Google Artifact Registry
+        run: echo "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" | docker login -u _json_key --password-stdin us-central1-docker.pkg.dev
+
       - name: Build and Push to GHCR
         uses: docker/build-push-action@v5
         with:
@@ -38,6 +41,9 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/portfolio:latest
             ghcr.io/${{ github.repository_owner }}/portfolio:${{ github.sha }}
             ghcr.io/${{ github.repository_owner }}/portfolio:${{ github.ref_name }}
+            us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:latest
+            us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ github.sha }}
+            us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}:${{ github.ref_name }}
 
   deploy:
     runs-on: ubuntu-latest
