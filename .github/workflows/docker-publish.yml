@@ -26,6 +26,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }} # Use PAT from GitHub Secrets
 
+      - name: Authenticate Docker to Artifact Registry using gcloud
+        run: |
+          echo "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" > ${HOME}/gcloud-key.json
+          gcloud auth activate-service-account --key-file=${HOME}/gcloud-key.json
+          gcloud auth configure-docker us-central1-docker.pkg.dev
+
       - name: Log in to Google Artifact Registry
         run: echo "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" | docker login -u _json_key --password-stdin us-central1-docker.pkg.dev
 
