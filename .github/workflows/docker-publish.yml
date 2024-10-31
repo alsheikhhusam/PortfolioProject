@@ -59,8 +59,13 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/portfolio:${{ env.branch_tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Cleanup Untagged Images
+        run: |
+          # Remove any untagged (dangling) images
+          docker image prune -f --filter "dangling=true"
   
-      - name: Build and Push to GCR
+      - name: Build and Push to GAR
         uses: docker/build-push-action@v5
         with:
           context: ./my-portfolio
