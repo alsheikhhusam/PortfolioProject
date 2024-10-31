@@ -29,7 +29,7 @@ jobs:
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}  # Use PAT from GitHub Secrets
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
@@ -51,12 +51,8 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/portfolio:${{ github.ref_name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-      - name: Prepare Branch Tag
-        id: branch_tag
-        run: echo "##[set-output name=tag;]$(echo ${{ github.ref_name }} | tr '/' '-' | tr '[:upper:]' '[:lower:]')"
   
-      - name: Build and Push to GAR
+      - name: Build and Push to GCR
         uses: docker/build-push-action@v5
         with:
           context: ./my-portfolio
@@ -64,7 +60,7 @@ jobs:
           tags: |
             us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:latest
             us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ github.sha }}
-            us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}:${{ steps.branch_tag.outputs.tag }}
+            us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}:${{ github.ref_name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
