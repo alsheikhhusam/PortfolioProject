@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+.env
+.env.local
+# Terraform state files
+*.tfstate
+*.tfstate.*
+# Backup and log files
+*.backup
+*.log
+# Terraform variable files
+*.tfvars
+# Local .terraform directory
+.terraform/

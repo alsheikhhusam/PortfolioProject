@@ -46,14 +46,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-      
-      #* I believe this is not needed as we already logged in in previous job - testing it now
-      # - name: Log in to GHCR
-      #   uses: docker/login-action@v2
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GHCR_TOKEN }} # Use PAT from GitHub Secrets
 
       - name: Install Docker Compose
         run: |
@@ -69,7 +61,7 @@ jobs:
           docker-compose up -d
           sleep 30
 
-      #! Add verify service health here - https://github.com/alsheikhhusam/PortfolioProject/issues/1
+      #TODO: Add verify service health here - https://github.com/alsheikhhusam/PortfolioProject/issues/1
 
       - name: Push Image to GHCR with Docker Compose
         working-directory: ./my-portfolio
