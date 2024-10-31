@@ -57,7 +57,7 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/portfolio:latest
             ghcr.io/${{ github.repository_owner }}/portfolio:${{ github.sha }}
             ghcr.io/${{ github.repository_owner }}/portfolio:${{ env.branch_tag }}
-          cache-from: type=gha
+          cache-from: type=gha,mode=max
           cache-to: type=gha,mode=max
 
       - name: Cleanup Untagged Images
@@ -74,8 +74,6 @@ jobs:
             us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:latest
             us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ github.sha }}
             us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ env.branch_tag }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
   deploy:
     runs-on: ubuntu-latest
