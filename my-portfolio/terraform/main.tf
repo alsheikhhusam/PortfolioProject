@@ -12,7 +12,7 @@ resource "google_cloud_run_service" "portfolio" {
 
         spec {
             containers {
-                image = var.container_image
+                image = "us-central1-docker.pkg.dev/${var.project_id}/${var.gcp_artifact_registry_repo}/portfolio:latest"
 
                 resources {
                     limits = {
@@ -31,15 +31,15 @@ resource "google_cloud_run_service" "portfolio" {
   }
 }
 
-resource "google_cloud_run_domain_mapping" "portfolio_mapping" {
-    name        = "husamalsheikh.info"
-    location    = var.region
+# resource "google_cloud_run_domain_mapping" "portfolio_mapping" {
+#     name        = "husamalsheikh.info"
+#     location    = var.region
 
-    metadata {
-        namespace = google_cloud_run_service.portfolio.metadata[0].namespace
-    }
+#     metadata {
+#         namespace = google_cloud_run_service.portfolio.metadata[0].namespace
+#     }
 
-    spec {
-        route_name = google_cloud_run_service.portfolio.status[0].url
-    }
-}
+#     spec {
+#         route_name = google_cloud_run_service.portfolio.status[0].url
+#     }
+# }

@@ -11,6 +11,7 @@ variable "region" {
   default     = "us-central1"
 }
 
-variable "container_image" {
-  description = "Container Image"
+variable "gcp_artifact_registry_repo" {
+  description = "GCP Artifact Registry Repo Name"
+  type        = string
 }
