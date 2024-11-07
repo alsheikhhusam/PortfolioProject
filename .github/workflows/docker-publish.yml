@@ -96,7 +96,7 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy my-portfolio \
+          gcloud run deploy portfolio-web \
             --image us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/my-portfolio/portfolio:latest \
             --region us-central1 \
             --platform managed \
@@ -106,7 +106,7 @@ jobs:
       - name: Cleanup Old Revisions
         run: |
           gcloud run revisions list \
-            --service my-portfolio \
+            --service portfolio-web \
             --region us-central1 \
             --format="value(NAME)" \
             | tail -n +2 \
