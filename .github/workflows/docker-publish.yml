@@ -97,7 +97,7 @@ jobs:
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy portfolio-web \
-            --image us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/my-portfolio/portfolio:latest \
+            --image us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:latest \
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated \
