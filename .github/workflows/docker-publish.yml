@@ -84,4 +84,22 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy my-portfolio \
+            --image us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/my-portfolio/portfolio:latest \
+            --region us-central1 \
+            --platform managed \
+            --allow-unauthenticated \
+            --project ${{ vars.GCP_PROJECT_ID }}
+
+      - name: Cleanup Old Revisions
+        run: |
+          gcloud run revisions list \
+            --service my-portfolio \
+            --region us-central1 \
+            --format="value(NAME)" \
+            | tail -n +2 \
+            | xargs -I {} gcloud run revisions delete {} --quiet --region us-central1
+
       #TODO: Add verify service health here - https://github.com/alsheikhhusam/PortfolioProject/issues/1
