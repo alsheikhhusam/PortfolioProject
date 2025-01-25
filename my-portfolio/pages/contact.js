@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
 
-//TODO: Add verify service health here - https://github.com/alsheikhhusam/PortfolioProject/issues/2
+//TODO: Re Captcha - https://github.com/alsheikhhusam/PortfolioProject/issues/2
 
 export default function Contact() {
     //  State Management

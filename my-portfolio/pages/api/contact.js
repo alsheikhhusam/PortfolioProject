@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-//TODO: Add verify service health here - https://github.com/alsheikhhusam/PortfolioProject/issues/2
+//TODO: Re Captcha - https://github.com/alsheikhhusam/PortfolioProject/issues/2
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {    //  Only allow POST requests
