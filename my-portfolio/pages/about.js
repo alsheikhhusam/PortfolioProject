@@ -15,11 +15,11 @@ export default function About() {
   return (
     <Container maxWidth="md" sx={{ py: 8 }}>
       <Box textAlign="center" sx={{ mb: 6 }}>
-        {/* <Avatar
+        <Avatar
           alt="Profile Picture"
-          src="my-portfolio/public/TestPFP.png"
+          src="/TestPFP.png"
           sx={{ width: 120, height: 120, margin: '0 auto', mb: 2 }}
-        /> */}
+        />
         <Typography variant="h2" gutterBottom>
           Husam Alsheikh
         </Typography>
