@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
 
 //TODO: Re Captcha - https://github.com/alsheikhhusam/PortfolioProject/issues/2
@@ -8,7 +8,15 @@ export default function Contact() {
     const [form, setForm] = useState({ name: '', email: '', message: '' });
     const [responseMessage, setResponseMessage] = useState('');
     const [errors, setErrors] = useState({});
+    const [showMessage, setShowMessage] = useState(false);
+    const [fadeOut, setFadeOut] = useState(false);
 
+    //  Updates state if change is detected
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+    
+    //  Data Validation
     const validateForm = () => {
         const newErrors = {};
 
@@ -22,11 +30,6 @@ export default function Contact() {
 
         if (!form.message) newErrors.message = 'Message is required';
         return newErrors;
-    };
-
-    //  Updates state if change is detected
-    const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
     };
 
     //  Sends form data to API route via POST request
@@ -50,33 +53,87 @@ export default function Contact() {
         //  Display response
         const data = await res.json();
         setResponseMessage(data.message);
+        setShowMessage(true);
+        setFadeOut(false);
         setForm({ name: '', email: '', message: '' });  //  Clear form on success
         setErrors({});
         } catch (error) {   //  ERROR catching
             console.error('Error submitting form:', error);
             setResponseMessage('Something went wrong. Please try again later.');
+            setShowMessage(true);
+            setFadeOut(false);
         }
     };
 
-    return (
-        <Container maxWidth="sm" sx={{ marginTop: '2rem' }}>
+    //  Clears message after timeout
+    useEffect(() => {
+        if (showMessage) {
+            const fadeTimer = setTimeout(() => setFadeOut(true), 2000); // Start fading out after 2 seconds
+            const hideTimer = setTimeout(() => setShowMessage(false), 5000); // Hide message completely after 5 seconds
+            return () => {
+                clearTimeout(fadeTimer);
+                clearTimeout(hideTimer);
+          };
+        }
+      }, [showMessage]);
 
-            <Typography variant="h4" gutterBottom>
+    return (
+        <Container maxWidth="sm" sx={{ py: 8 }}>
+
+            <Typography variant="h2" gutterBottom>
                 Contact Me
             </Typography>
 
             <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                <TextField label="Name" name="name" value={form.name} onChange={handleChange} error={!!errors.name} helperText={errors.name} fullWidth />
+                <TextField
+                    label="Name"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    error={!!errors.name}
+                    helperText={errors.name}
+                    fullWidth
+                />
 
-                <TextField label="Email" name="email" value={form.email} onChange={handleChange} error={!!errors.email} helperText={errors.email} fullWidth />
+                <TextField
+                    label="Email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    error={!!errors.email}
+                    helperText={errors.email}
+                    fullWidth
+                />
 
-                <TextField label="Message" name="message" value={form.message} onChange={handleChange} error={!!errors.message} helperText={errors.message} fullWidth multiline rows={4} />
+                <TextField
+                    label="Message"
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    error={!!errors.message}
+                    helperText={errors.message}
+                    fullWidth
+                    multiline
+                    rows={4}
+                />
 
-                <Button type="submit" variant="contained" color="primary"> Send Message </Button>
+                <Button type="submit" variant="contained" color="primary">
+                    Send Message
+                </Button>
             </Box>
-
-            {responseMessage && <Typography variant="body2" sx={{ mt: 2 }}>{responseMessage}</Typography>}
-
+            {showMessage && (
+                <Typography
+                variant="body2"
+                sx={{
+                    mt: 2,
+                    color: responseMessage.includes('successfully') ? 'green' : 'red', // Green for success, red for errors
+                    opacity: fadeOut ? 0 : 1, // Gradual fade out
+                    transition: 'opacity 3s ease-in-out', // Slow fade out over 3 seconds
+                }}
+                >
+                {responseMessage}
+                </Typography>
+            )}
         </Container>
     );
 }
