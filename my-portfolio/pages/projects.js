@@ -3,7 +3,7 @@ import { Container, Typography, Card, CardContent, CardActions, Button, Box } fr
 const projects = [
   { id: 1,
     title: 'My Portfolio Web App',
-    description: 'A brief description of Project 1.',
+    description: 'This portfolio site is designed to showcase my technical skills and experience. Built with Next.js and deployed on Google Cloud Run, it highlights my expertise in modern web development and cloud engineering. The project leverages Git for version control, GitHub Actions for CI/CD, and Cloudflare for reverse proxy and domain management. Intentionally over-engineered, it demonstrates my ability to implement robust, scalable solutions while using tools like Docker, Terraform, and monitoring technologies such as Grafana and Prometheus.',
     link: "https://github.com/alsheikhhusam/PortfolioProject"
   },
   { id: 2,
