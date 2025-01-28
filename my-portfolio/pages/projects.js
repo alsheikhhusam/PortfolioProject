@@ -61,8 +61,12 @@ export default function Projects() {
             }}
           >
             <CardContent>
-              <Typography variant="h5" gutterBottom color="secondary.main" fontWeight="bold">
-                {project.title}
+              <Typography
+                variant="h5"
+                gutterBottom
+                color="secondary.main"
+                fontWeight="bold">
+                  {project.title}
               </Typography>
               <Typography variant="body2">{project.description}</Typography>
             </CardContent>
@@ -86,8 +90,11 @@ export default function Projects() {
                   View Details
                 </Button>
               ) : (
-                <Typography variant="body2" color="text.secondary" fontStyle="italic">
-                  * Proprietary Source Code *
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  fontStyle="italic">
+                    * Proprietary Source Code *
                 </Typography>
               )}
             </CardActions>

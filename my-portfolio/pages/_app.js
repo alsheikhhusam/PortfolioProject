@@ -14,6 +14,6 @@ export default function MyApp({ Component, pageProps = {} }) {
 
 // Add PropTypes validation
 MyApp.propTypes = {
-  Component: PropTypes.elementType.isRequired,
-  pageProps: PropTypes.object,
+    Component: PropTypes.elementType.isRequired,
+    pageProps: PropTypes.object,
 };
