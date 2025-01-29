@@ -180,9 +180,9 @@ export default function About() {
                 About Me
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                I’m Husam Alsheikh, a Senior Cloud Engineer with a passion for all things cloud-based. With over 3
+                Senior Cloud Engineer with a passion for all things cloud-based. With over 3
                 years of experience, I specialize in Azure Cloud Engineering and helping businesses achieve scalable
-                and secure cloud solutions.
+                and secure cloud solutions. I am also experienced in high-level incident management, ensuring rapid resolution and system reliability in critical situations.
             </Typography>
         </Box>
 
