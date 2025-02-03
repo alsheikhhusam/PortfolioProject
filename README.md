@@ -24,7 +24,6 @@ This is my personal portfolio website built with **Next.js** and deployed on **G
 <br>
 <br>
 <br>
-<br>
 
 ***"Note: This site is still under development and is not yet complete."***
 
