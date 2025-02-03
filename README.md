@@ -19,6 +19,22 @@ This is my personal portfolio website built with **Next.js** and deployed on **G
 **Cloud & DevOps:** Google Cloud Run, Docker, Terraform  
 **CI/CD:** GitHub Actions, Cloudflare  
 **Monitoring & Logging:** Grafana, Prometheus, Loki  
-**Security:** Cloudflare WAF, Bot Protection  
+**Security:** Cloudflare WAF, Bot Protection
 
-**"Note: This site is still under development and is not yet complete."**
+<br>
+<br>
+<br>
+<br>
+
+***"Note: This site is still under development and is not yet complete."***
+
+## Plans Ahead
+
+- **Add Particles.js to the background**
+- **Improve Site Security**
+- **Improve Site Resiliency**
+- **Implement Light/Dark mode toggle**
+- **Improve Contact Form**
+- **Site Performance Improvements**
+- **Interactive Resume Viewer and Downloader**
+- **Add Project Roadmap and Progress Tracking**
