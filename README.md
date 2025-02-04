@@ -4,13 +4,13 @@ This is my personal portfolio website built with **Next.js** and deployed on **G
 
 ## Features
 
-- Built with **Next.js** for optimized performance and SEO
-- Deployed using **Google Cloud Run**
-- Automated CI/CD pipeline with **GitHub Actions**
-- **Infrastructure as Code (IaC)** using Terraform
-- **Cloudflare** for domain management and security
-- Monitoring and logging with **Grafana, Prometheus, and Loki**
-- Containerized development with **Docker**
+- Built with Next.js for optimized performance and SEO
+- Deployed using Google Cloud Run
+- Automated CI/CD pipeline with GitHub Actions
+- Infrastructure as Code (IaC) using Terraform
+- Cloudflare for domain management and security
+- Monitoring and logging with Grafana, Prometheus, and Loki
+- Containerized development with Docker
 
 ## Technology Stack
 
