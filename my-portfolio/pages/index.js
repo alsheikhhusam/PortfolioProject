@@ -1,5 +1,4 @@
-import { Container, Typography, Box, Button } from '@mui/material';
-import Link from 'next/link';
+import { Container, Typography, Box, Button, Link } from '@mui/material';
 
 export default function Home() {
   return (
@@ -63,7 +62,7 @@ export default function Home() {
             About Me
           </Button>
         </Link>
-        <Link href="/projects" passHref>
+        <Link href="/experience" passHref>
           <Button
             variant="contained"
             color="secondary"
@@ -77,7 +76,7 @@ export default function Home() {
               },
             }}
           >
-            My Projects
+            Experience
           </Button>
         </Link>
         <Link href="/contact" passHref>
