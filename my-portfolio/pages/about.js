@@ -5,7 +5,7 @@ import { Container, Typography, Box, Avatar, Chip } from "@mui/material";
 const skills = [
     {
         category: "Cloud",
-        items: ["Azure", "Google Cloud Platform"]
+        items: ["Azure", "Google Cloud Platform", "Incident Management"]
     },
     {
         category: "DevOps",
@@ -29,31 +29,42 @@ const skills = [
     },
     {
         category: "Databases",
-        items: ["PostgreSQL", "MySQL"]
+        items: ["KQL", "PostgreSQL", "MySQL"]
     },
 ];
 
-// Utility to split the array into columns
-const splitSkills = (skills) => {
-  const leftColumn = skills.slice(0, Math.floor(skills.length / 2));
-  const rightColumn = skills.slice(Math.floor(skills.length / 2), -1);
-  const oddCategory = skills.length % 2 !== 0 ? skills[skills.length - 1] : null;
-  return { leftColumn, rightColumn, oddCategory };
+// Utility to split the array into columns dynamically and evenly
+const splitSkills = (skills, numColumns = 2) => {
+    const columns = Array.from({ length: numColumns }, () => []);
+
+    skills.forEach((skill, index) => {
+        columns[index % numColumns].push(skill);
+    });
+
+    // Ensure all columns have the same number of elements
+    const minLength = Math.min(...columns.map((col) => col.length));
+    columns.forEach((col, index) => {
+        if (col.length > minLength) {
+            col.pop(); // Remove the last element from the column if it's longer
+        }
+    });
+
+    return columns;
 };
 
 // Reusable component to render a skill column
 const SkillColumn = ({ categories, align = "left" }) => (
     <Box
         sx={{
-            flex: "1 1 45%",
+            flex: "1 1 0",
             display: "flex",
             flexDirection: "column",
             gap: 4,
             alignItems: align === "right" ? "flex-end" : "flex-start",
         }}
     >
-        {categories.map((skillCategory, index) => (
-            <Box key={index}>
+        {categories.map((skillCategory) => (
+            <Box key={skillCategory.category}>
                 <Typography
                     variant="subtitle1"
                     sx={{
@@ -61,11 +72,11 @@ const SkillColumn = ({ categories, align = "left" }) => (
                         mb: 2,
                         color: "text.secondary",
                         textTransform: "uppercase",
-                        letterSpacing: 1,
+                        letterSpacing: 2,
                         textAlign: align,
                     }}
                 >
-                {skillCategory.category}
+                    {skillCategory.category}
                 </Typography>
                 <Box
                     sx={{
@@ -75,9 +86,9 @@ const SkillColumn = ({ categories, align = "left" }) => (
                         justifyContent: align === "right" ? "flex-end" : "flex-start",
                     }}
                 >
-                    {skillCategory.items.map((item, idx) => (
+                    {skillCategory.items.map((item) => (
                         <Chip
-                            key={idx}
+                            key={item}
                             label={item}
                             variant="outlined"
                             color="primary"
@@ -101,7 +112,7 @@ SkillColumn.propTypes = {
         })
     ).isRequired,
     align: PropTypes.oneOf(["left", "right"]),
-  };
+};
 
 // Reusable component for the odd category
 const OddCategory = ({ category }) => category ? (
@@ -126,9 +137,9 @@ const OddCategory = ({ category }) => category ? (
                 gap: 1,
             }}
         >
-            {category.items.map((item, idx) => (
+            {category.items.map((item) => (
                 <Chip
-                    key={idx}
+                    key={item}
                     label={item}
                     variant="outlined"
                     color="primary"
@@ -150,71 +161,82 @@ OddCategory.propTypes = {
 };
 
 export default function About() {
-  const { leftColumn, rightColumn, oddCategory } = splitSkills(skills);
-
-  return (
-    <Container maxWidth="md" sx={{ py: 8 }}>
-        {/* Header */}
-        <Box textAlign="center" sx={{ mb: 6 }}>
-            <Avatar
-                alt="Profile Picture"
-                src="/TestPFP.png"
-                sx={{
-                    width: 120,
-                    height: 120,
-                    margin: "0 auto",
-                    mb: 2
-                }}
-            />
-            <Typography variant="h2" gutterBottom>
-                Husam Alsheikh
-            </Typography>
-            <Typography variant="h6" color="text.secondary">
-                Senior Cloud Engineer | Azure Specialist | Tech Enthusiast
-            </Typography>
-        </Box>
-
-        {/* About Me */}
-        <Box sx={{ mb: 6 }}>
-            <Typography variant="h4" gutterBottom>
-                About Me
-            </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                Senior Cloud Engineer with a passion for all things cloud-based. With over 3
-                years of experience, I specialize in Azure Cloud Engineering and helping businesses achieve scalable
-                and secure cloud solutions. I am also experienced in high-level incident management, ensuring rapid resolution and system reliability in critical situations.
-            </Typography>
-        </Box>
-
-        {/* Skills */}
-        <Box sx={{ mb: 6 }}>
-            <Typography variant="h4" gutterBottom>
-                My Skills
-            </Typography>
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: 4,
-                    flexWrap: "wrap",
-                }}
-            >
-                <SkillColumn categories={leftColumn} align="left" />
-                <SkillColumn categories={rightColumn} align="right" />
+    const numColumns = 2; // Adjust the number of columns as needed
+    const columns = splitSkills(skills, numColumns);    // Split the skills into columns
+    const oddCategory = skills.length % numColumns !== 0 ? skills[skills.length - 1] : null;    //  Get the odd category if it exists
+    
+    return (
+        <Container maxWidth="md" sx={{ py: 8 }}>
+            {/* Header */}
+            <Box textAlign="center" sx={{ mb: 6 }}>
+                <Avatar
+                    alt="Profile Picture"
+                    src="/TestPFP.png"
+                    sx={{
+                        width: 120,
+                        height: 120,
+                        margin: "0 auto",
+                        mb: 2
+                    }}
+                />
+                <Typography variant="h2" gutterBottom>
+                    Husam Alsheikh
+                </Typography>
+                <Typography variant="h6" color="text.secondary">
+                    Senior Cloud Engineer | Azure Cloud Support | SRE | Incident Manager
+                </Typography>
             </Box>
-            <OddCategory category={oddCategory} />
-        </Box>
 
-        {/* Footer */}
-        <Box>
-            <Typography variant="h4" gutterBottom>
-                Beyond Work
-            </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                Outside of work, I enjoy exploring new technologies, gaming, and spending time with family. I am
-                always eager to connect with like-minded individuals and collaborate on exciting ventures.
-            </Typography>
-        </Box>
-    </Container>
-  );
+            {/* About Me */}
+            <Box sx={{ mb: 6 }}>
+                <Typography variant="h4" gutterBottom>
+                    About Me
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
+                    Senior Cloud Engineer with a passion for all things cloud-based. With over 3
+                    years of experience, I specialize in Azure Cloud Engineering and helping businesses achieve scalable
+                    and secure cloud solutions. I am also experienced in high-level incident management, ensuring rapid resolution and system reliability in critical situations.
+                </Typography>
+            </Box>
+
+            {/* Skills */}
+            <Box sx={{ mb: 6 }}>
+                <Typography variant="h4" gutterBottom>
+                    My Skills
+                </Typography>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: 4,
+                        flexWrap: "wrap",
+                    }}
+                >
+                    {columns.map((column, index) => (
+                        <SkillColumn
+                            key={index}
+                            categories={column}
+                            align={index % 2 === 0 ? "left" : "right"}
+                        />
+                    ))}
+                </Box>
+                {oddCategory && (
+                    <Box textAlign="center" sx={{ mt: 4 }}>
+                        <OddCategory category={oddCategory} />
+                    </Box>
+                )}
+            </Box>
+
+            {/* Footer */}
+            <Box>
+                <Typography variant="h4" gutterBottom>
+                    Beyond Work
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
+                    Outside of work, I enjoy exploring new technologies, gaming, and spending time with family. I am
+                    always eager to connect with like-minded individuals and collaborate on exciting ventures.
+                </Typography>
+            </Box>
+        </Container>
+    );
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import { Container, TextField, Button, Typography, Box, Link } from '@mui/material';
 
 //TODO: Re Captcha - https://github.com/alsheikhhusam/PortfolioProject/issues/2
 
@@ -15,7 +15,7 @@ export default function Contact() {
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
-    
+
     //  Data Validation
     const validateForm = () => {
         const newErrors = {};
@@ -23,9 +23,9 @@ export default function Contact() {
         if (!form.name) newErrors.name = 'Name is required';
 
         if (!form.email) {
-          newErrors.email = 'Email is required';
+            newErrors.email = 'Email is required';
         } else if (!/\S+@\S+\.\S+/.test(form.email)) {
-          newErrors.email = 'Email address is invalid';
+            newErrors.email = 'Email address is invalid';
         }
 
         if (!form.message) newErrors.message = 'Message is required';
@@ -38,25 +38,25 @@ export default function Contact() {
 
         //  Validate Form
         const validationErrors = validateForm();
-        if (Object.keys(validationErrors).length > 0) { 
+        if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
             return;
         }
 
         try {   //  Send API request via fetch (JSON format)
-        const res = await fetch('/api/contact', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', },
-            body: JSON.stringify(form),
-        });
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(form),
+            });
 
-        //  Display response
-        const data = await res.json();
-        setResponseMessage(data.message);
-        setShowMessage(true);
-        setFadeOut(false);
-        setForm({ name: '', email: '', message: '' });  //  Clear form on success
-        setErrors({});
+            //  Display response
+            const data = await res.json();
+            setResponseMessage(data.message);
+            setShowMessage(true);
+            setFadeOut(false);
+            setForm({ name: '', email: '', message: '' });  //  Clear form on success
+            setErrors({});
         } catch (error) {   //  ERROR catching
             console.error('Error submitting form:', error);
             setResponseMessage('Something went wrong. Please try again later.');
@@ -73,15 +73,31 @@ export default function Contact() {
             return () => {
                 clearTimeout(fadeTimer);
                 clearTimeout(hideTimer);
-          };
+            };
         }
-      }, [showMessage]);
+    }, [showMessage]);
 
     return (
-        <Container maxWidth="sm" sx={{ py: 8 }}>
-
+        <Container maxWidth="sm" sx={{ py: 8, textAlign: 'center' }}>
             <Typography variant="h2" gutterBottom>
                 Contact Me
+            </Typography>
+
+            <Typography sx={{ mb: 4 }} color="text.secondary">
+                Feel free to reach me over {' '}
+                
+                <Link
+                    href="https://www.linkedin.com/in/husam-alsheikh/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    underline="hover"
+                    sx={{ color: 'primary.main', fontWeight: 'bold' }}
+                >
+                    LinkedIn
+                </Link>
+                
+                {' '} or send me a message below!
+                
             </Typography>
 
             <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -117,21 +133,21 @@ export default function Contact() {
                     rows={4}
                 />
 
-                <Button type="submit" variant="contained" color="primary">
+                <Button type="submit" variant="contained" color="primary" sx={{ py: 1.5 }}>
                     Send Message
                 </Button>
             </Box>
             {showMessage && (
                 <Typography
-                variant="body2"
-                sx={{
-                    mt: 2,
-                    color: responseMessage.includes('successfully') ? 'green' : 'red', // Green for success, red for errors
-                    opacity: fadeOut ? 0 : 1, // Gradual fade out
-                    transition: 'opacity 3s ease-in-out', // Slow fade out over 3 seconds
-                }}
+                    variant="body2"
+                    sx={{
+                        mt: 2,
+                        color: responseMessage.includes('successfully') ? 'green' : 'red',
+                        opacity: fadeOut ? 0 : 1,
+                        transition: 'opacity 3s ease-in-out',
+                    }}
                 >
-                {responseMessage}
+                    {responseMessage}
                 </Typography>
             )}
         </Container>
