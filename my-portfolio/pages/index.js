@@ -63,7 +63,7 @@ export default function Home() {
             About Me
           </Button>
         </Link>
-        <Link href="/projects" passHref>
+        <Link href="/experience" passHref>
           <Button
             variant="contained"
             color="secondary"
@@ -77,7 +77,7 @@ export default function Home() {
               },
             }}
           >
-            My Projects
+            Experience
           </Button>
         </Link>
         <Link href="/contact" passHref>

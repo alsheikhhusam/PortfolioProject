@@ -214,10 +214,10 @@ export default function About() {
                 >
                     {columns.map((column, index) => (
                         <SkillColumn
-                            key={index}
+                            key={column[0]?.category} // Use the category of the first skill in the column as the key   //  array indexes as keys in React can lead to problems
                             categories={column}
                             align={index % 2 === 0 ? "left" : "right"}
-                        />
+                    />
                     ))}
                 </Box>
                 {oddCategory && (
