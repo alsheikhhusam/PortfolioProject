@@ -8,10 +8,6 @@ export default function Home() {
       sx={{
         textAlign: 'center',
         py: 8,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        borderRadius: 2,
-        boxShadow: 3,
         color: 'text.primary',
       }}
     >
