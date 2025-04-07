@@ -1,6 +1,8 @@
 import { Container, Typography, Box, Button } from '@mui/material';
 import Link from 'next/link';
 
+//TODO: Add Particles.js for background animation
+
 export default function Home() {
   return (
     <Container
