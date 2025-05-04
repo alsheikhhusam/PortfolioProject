@@ -31,7 +31,7 @@ This is my personal portfolio website built with **Next.js** and deployed on **G
 
 - **~~Implement a back button for easier navigation~~**
 - **Add Particles.js to the background**
-- **Implement a monitoring via a Grafana Dashboard**
+- **Implement monitoring via a Grafana Dashboard**
 - **Improve Site Security**
 - **Improve Site Resiliency**
 - **Implement Light/Dark mode toggle**
