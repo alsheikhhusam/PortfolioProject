@@ -4,21 +4,38 @@ This is my personal portfolio website built with **Next.js** and deployed on **G
 
 ## Features
 
-- Built with **Next.js** for optimized performance and SEO
-- Deployed using **Google Cloud Run**
-- Automated CI/CD pipeline with **GitHub Actions**
-- **Infrastructure as Code (IaC)** using Terraform
-- **Cloudflare** for domain management and security
-- Monitoring and logging with **Grafana, Prometheus, and Loki**
-- Containerized development with **Docker**
+- Built with Next.js for optimized performance and SEO
+- Deployed using Google Cloud Run
+- Automated CI/CD pipeline with GitHub Actions
+- Infrastructure as Code (IaC) using Terraform
+- Cloudflare for domain management and security
+- Monitoring and logging with Grafana, Prometheus, and Loki
+- Containerized development with Docker
 
 ## Technology Stack
 
-**Frontend:** Next.js, React, Material-UI  
-**Backend:** Node.js, API routes  
-**Cloud & DevOps:** Google Cloud Run, Docker, Terraform  
-**CI/CD:** GitHub Actions, Cloudflare  
-**Monitoring & Logging:** Grafana, Prometheus, Loki  
-**Security:** Cloudflare WAF, Bot Protection  
+**Frontend:** Next.js, React, Material-UI
+**Backend:** Node.js
+**Cloud & DevOps:** Google Cloud Run, Docker, Terraform
+**CI/CD:** GitHub Actions, Cloudflare
+**Monitoring & Logging:** Grafana, Prometheus, Loki
+**Security:** Cloudflare WAF, Bot Protection
 
-**"Note: This site is still under development and is not yet complete."**
+<br>
+<br>
+<br>
+
+***"Note: This site is still under development and is not yet complete."***
+
+## Plans Ahead
+
+- **~~Implement a back button for easier navigation~~**
+- **Add Particles.js to the background**
+- **Implement a monitoring via a Grafana Dashboard**
+- **Improve Site Security**
+- **Improve Site Resiliency**
+- **Implement Light/Dark mode toggle**
+- **Improve Contact Form**
+- **Site Performance Improvements**
+- **Interactive Resume Viewer and Downloader**
+- **Add Project Roadmap and Progress Tracking**
