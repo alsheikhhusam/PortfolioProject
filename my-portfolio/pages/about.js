@@ -61,8 +61,8 @@ const SkillColumn = ({ categories, align = "left" }) => (
             flex: "1 1 0",
             display: "flex",
             flexDirection: "column",
-            gap: 4,
-            alignItems: align === "right" ? "flex-end" : "flex-start",
+            gap: 5,
+            justifyContent: "space-between"
         }}
     >
         {categories.map((skillCategory) => (
