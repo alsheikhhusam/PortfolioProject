@@ -34,9 +34,9 @@ const workExperience = [
 ];
 
 const certificates = [
+  { name: 'AZ-104 Microsoft Azure Administrative Associate', url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/277FEFC03D3706F8?sharingId=39C651685B6997D9' },
   { name: 'AZ-900 Microsoft Azure Fundamentals', url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/2288C16DA2EAD72E?sharingId=39C651685B6997D9' },
   { name: 'AI-900 Microsoft Azure AI Fundamentals', url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/88BD6435182EA6E7?sharingId=39C651685B6997D9' },
-  { name: 'AZ-104 Microsoft Azure Administrative Associate', url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/277FEFC03D3706F8?sharingId=39C651685B6997D9' },
 ];
 
 const languages = [
