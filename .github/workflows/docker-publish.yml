@@ -111,5 +111,4 @@ jobs:
             --format="value(NAME)" \
             | tail -n +2 \
             | xargs -I {} gcloud run revisions delete {} --quiet --region us-central1
-
-      #TODO: Add verify service health here - https://github.com/alsheikhhusam/PortfolioProject/issues/1
+            
