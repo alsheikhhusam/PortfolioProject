@@ -14,11 +14,11 @@ This is my personal portfolio website built with **Next.js** and deployed on **G
 
 ## Technology Stack
 
-**Frontend:** Next.js, React, Material-UI  
-**Backend:** Node.js, API routes  
-**Cloud & DevOps:** Google Cloud Run, Docker, Terraform  
-**CI/CD:** GitHub Actions, Cloudflare  
-**Monitoring & Logging:** Grafana, Prometheus, Loki  
+**Frontend:** Next.js, React, Material-UI
+**Backend:** Node.js
+**Cloud & DevOps:** Google Cloud Run, Docker, Terraform
+**CI/CD:** GitHub Actions, Cloudflare
+**Monitoring & Logging:** Grafana, Prometheus, Loki
 **Security:** Cloudflare WAF, Bot Protection
 
 <br>
@@ -29,7 +29,9 @@ This is my personal portfolio website built with **Next.js** and deployed on **G
 
 ## Plans Ahead
 
+- **~~Implement a back button for easier navigation~~**
 - **Add Particles.js to the background**
+- **Implement a monitoring via a Grafana Dashboard**
 - **Improve Site Security**
 - **Improve Site Resiliency**
 - **Implement Light/Dark mode toggle**
