@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Container, TextField, Button, Typography, Box, Link } from '@mui/material';
+import { useRouter } from 'next/router';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 //TODO: Re Captcha - https://github.com/alsheikhhusam/PortfolioProject/issues/2
 
@@ -77,13 +80,31 @@ export default function Contact() {
         }
     }, [showMessage]);
 
+    // Handle back button click
+    const router = useRouter();
+    const handleBackClick = () => {
+        router.back();
+    };
+
     return (
-        <Container maxWidth="sm" sx={{ py: 8, textAlign: 'center' }}>
-            <Typography variant="h2" gutterBottom>
+        <Container maxWidth="md" sx={{ py: 8, textAlign: 'center' }}>
+            {/* Back Button */}
+            <Box sx={{ mb: 4, textAlign: 'left' }}>
+                <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={handleBackClick}
+                    startIcon={<ArrowBackIcon />}
+                >
+                </Button>
+            </Box>
+
+            {/*Header*/}
+            <Typography variant="h1" gutterBottom>
                 Contact Me
             </Typography>
 
-            <Typography sx={{ mb: 4 }} color="text.secondary">
+            <Typography variant='body1' sx={{ mb: 4 }} color="text.secondary">
                 Feel free to reach me over {' '}
                 
                 <Link
@@ -133,7 +154,7 @@ export default function Contact() {
                     rows={4}
                 />
 
-                <Button type="submit" variant="contained" color="primary" sx={{ py: 1.5 }}>
+                <Button type="submit" variant="contained" color="primary" sx={{ py: 1.5, fontSize: '1rem', fontWeight: 'bold' }}>
                     Send Message
                 </Button>
             </Box>

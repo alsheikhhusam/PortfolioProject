@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container, Typography, Box, Avatar, Chip } from "@mui/material";
+import { Container, Typography, Box, Avatar, Chip, Button } from "@mui/material";
+import { useRouter } from "next/router";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const skills = [
     {
@@ -9,7 +11,7 @@ const skills = [
     },
     {
         category: "DevOps",
-        items: ["Docker", "Kubernetes", "Git", "Terraform", "Jenkins", "Helm"]
+        items: ["Docker", "Kubernetes", "Git", "Terraform", "Bicep", "CI/CD"]
     },
     {
         category: "Monitoring",
@@ -21,7 +23,7 @@ const skills = [
     },
     {
         category: "Spring",
-        items: ["Spring Boot", "Spring MVC", "Spring Data", "Spring Data JPA", "REST"]
+        items: ["Spring Boot", "Spring MVC", "Spring Data", "REST"]
     },
     {
         category: "Web Technologies",
@@ -59,8 +61,8 @@ const SkillColumn = ({ categories, align = "left" }) => (
             flex: "1 1 0",
             display: "flex",
             flexDirection: "column",
-            gap: 4,
-            alignItems: align === "right" ? "flex-end" : "flex-start",
+            gap: 5,
+            justifyContent: "space-between"
         }}
     >
         {categories.map((skillCategory) => (
@@ -69,6 +71,7 @@ const SkillColumn = ({ categories, align = "left" }) => (
                     variant="subtitle1"
                     sx={{
                         fontWeight: "bold",
+                        fontSize: "1.5rem",
                         mb: 2,
                         color: "text.secondary",
                         textTransform: "uppercase",
@@ -93,8 +96,9 @@ const SkillColumn = ({ categories, align = "left" }) => (
                             variant="outlined"
                             color="primary"
                             sx={{
-                                fontSize: "0.9rem",
-                                fontWeight: "bold",
+                                fontSize: "1.25rem",
+                                fontWeight: "semi-bold",
+                                padding: 2
                             }}
                         />
                     ))}
@@ -121,6 +125,7 @@ const OddCategory = ({ category }) => category ? (
             variant="subtitle1"
             sx={{
                 fontWeight: "bold",
+                fontSize: "1.5rem",
                 mb: 2,
                 color: "text.secondary",
                 textTransform: "uppercase",
@@ -144,8 +149,9 @@ const OddCategory = ({ category }) => category ? (
                     variant="outlined"
                     color="primary"
                     sx={{
-                        fontSize: "0.9rem",
-                        fontWeight: "bold",
+                        fontSize: "1.25rem",
+                        fontWeight: "semi-bold",
+                        padding: 2
                     }}
                 />
             ))}
@@ -164,9 +170,26 @@ export default function About() {
     const numColumns = 2; // Adjust the number of columns as needed
     const columns = splitSkills(skills, numColumns);    // Split the skills into columns
     const oddCategory = skills.length % numColumns !== 0 ? skills[skills.length - 1] : null;    //  Get the odd category if it exists
-    
+
+    // Handle back button click
+    const router = useRouter();
+    const handleBackClick = () => {
+        router.back();
+    }
+
     return (
         <Container maxWidth="md" sx={{ py: 8 }}>
+            {/* Back Button */}
+            <Box sx={{ mb: 4 }}>
+                <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={handleBackClick}
+                    startIcon={<ArrowBackIcon />}
+                >
+                </Button>
+            </Box>
+
             {/* Header */}
             <Box textAlign="center" sx={{ mb: 6 }}>
                 <Avatar
@@ -179,17 +202,17 @@ export default function About() {
                         mb: 2
                     }}
                 />
-                <Typography variant="h2" gutterBottom>
+                <Typography variant="h1" gutterBottom>
                     Husam Alsheikh
                 </Typography>
-                <Typography variant="h6" color="text.secondary">
+                <Typography variant="h5" color="text.secondary">
                     Senior Cloud Engineer | Azure Cloud Support | SRE | Incident Manager
                 </Typography>
             </Box>
 
             {/* About Me */}
             <Box sx={{ mb: 6 }}>
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h3" gutterBottom>
                     About Me
                 </Typography>
                 <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
@@ -201,7 +224,7 @@ export default function About() {
 
             {/* Skills */}
             <Box sx={{ mb: 6 }}>
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h3" gutterBottom>
                     My Skills
                 </Typography>
                 <Box

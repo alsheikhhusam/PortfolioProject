@@ -1,11 +1,13 @@
-import { Container, Typography, Box, Divider, Link } from '@mui/material';
+import { Container, Typography, Box, Divider, Link, Button } from '@mui/material';
+import { useRouter } from 'next/router';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const workExperience = [
   {
     id: 1,
     title: 'Senior Cloud Engineer',
     company: 'LTIMindtree',
-    duration: '04/2022 - Present',
+    duration: '04/2022 - 05/2025',
     responsibilities: [
       'Troubleshoot and resolve complex technical issues related to Azure Core Services, including Networking, Compute and Storage',
       'Implement time-sensitive mitigation strategies to minimize customer impact and conduct thorough root cause analyses',
@@ -34,7 +36,7 @@ const workExperience = [
 const certificates = [
   { name: 'AZ-900 Microsoft Azure Fundamentals', url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/2288C16DA2EAD72E?sharingId=39C651685B6997D9' },
   { name: 'AI-900 Microsoft Azure AI Fundamentals', url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/88BD6435182EA6E7?sharingId=39C651685B6997D9' },
-  { name: 'AZ-104 Microsoft Azure Administrative Associate (In Progress)', url: null },
+  { name: 'AZ-104 Microsoft Azure Administrative Associate', url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/277FEFC03D3706F8?sharingId=39C651685B6997D9' },
 ];
 
 const languages = [
@@ -42,12 +44,29 @@ const languages = [
 ];
 
 export default function Experience() {
+  // Handle back button click
+  const router = useRouter();
+  const handleBackClick = () => {
+      router.back();
+  }
+  
   return (
     <Container maxWidth="md" sx={{ py: 8 }}>
+      {/* Back Button */}
+      <Box sx={{ mb: 4 }}>
+          <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleBackClick}
+              startIcon={<ArrowBackIcon />}
+          >
+          </Button>
+      </Box>
+            
       {/* Work Experience Section */}
       <Box sx={{ mb: 6 }}>
         <Typography
-          variant="h4"
+          variant="h1"
           gutterBottom
           sx={{ textAlign: 'center', mb: 2, fontWeight: 'bold' }}
         >
@@ -56,16 +75,16 @@ export default function Experience() {
         <Divider sx={{ mb: 4 }} />
         {workExperience.map((job) => (
           <Box key={job.id} sx={{ mb: 4 }}>
-            <Typography variant="h5" color="secondary.main" fontWeight="bold">
+            <Typography variant="h3" color="secondary.main" fontWeight="bold">
               {job.title}
             </Typography>
-            <Typography variant="subtitle1" sx={{ mb: 1 }}>
+            <Typography variant="h5" sx={{ mb: 1 }}>
               {job.company} <span style={{ marginLeft: '0.5rem' }}>{job.duration}</span>
             </Typography>
             <ul style={{ paddingLeft: '1.5rem' }}>
               {job.responsibilities.map((responsibility, index) => (
                 <li key={responsibility.length + index}>
-                  <Typography variant="body2" color="text.secondary" fontSize={16}>
+                  <Typography variant="body1" color="text.secondary">
                     {responsibility}
                   </Typography>
                 </li>
@@ -78,7 +97,7 @@ export default function Experience() {
       {/* Certificates Section */}
       <Box sx={{ mb: 6 }}>
         <Typography
-          variant="h4"
+          variant="h2"
           gutterBottom
           sx={{ textAlign: 'center', mb: 2, fontWeight: 'bold' }}
         >
@@ -113,7 +132,7 @@ export default function Experience() {
       {/* Languages Section */}
       <Box>
         <Typography
-          variant="h4"
+          variant="h2"
           gutterBottom
           sx={{ textAlign: 'center', mb: 2, fontWeight: 'bold' }}
         >

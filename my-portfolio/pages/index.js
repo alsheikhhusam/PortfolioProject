@@ -28,7 +28,6 @@ export default function Home() {
         variant="body1"
         sx={{
           mb: 4,
-          fontSize: '1.2rem',
           textShadow: '1px 1px 3px rgba(0, 0, 0, 0.5)', // Subtle text shadow
           color: 'text.secondary',
         }}
@@ -49,9 +48,10 @@ export default function Home() {
             variant="contained"
             color="primary"
             sx={{
+              margin: 2,
               px: 4,
               py: 1.5,
-              fontSize: '1rem',
+              fontSize: '1.4rem',
               transition: 'transform 0.3s ease',
               '&:hover': {
                 transform: 'scale(1.1)', // Add hover animation
@@ -66,9 +66,10 @@ export default function Home() {
             variant="contained"
             color="secondary"
             sx={{
+              margin: 2,
               px: 4,
               py: 1.5,
-              fontSize: '1rem',
+              fontSize: '1.4rem',
               transition: 'transform 0.3s ease',
               '&:hover': {
                 transform: 'scale(1.1)', // Add hover animation
@@ -83,9 +84,10 @@ export default function Home() {
             variant="contained"
             color="primary"
             sx={{
+              margin: 2,
               px: 4,
               py: 1.5,
-              fontSize: '1rem',
+              fontSize: '1.4rem',
               transition: 'transform 0.3s ease',
               '&:hover': {
                 transform: 'scale(1.1)', // Add hover animation
