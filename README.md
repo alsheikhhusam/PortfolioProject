@@ -15,10 +15,15 @@ This is my personal portfolio website built with **Next.js** and deployed on **G
 ## Technology Stack
 
 **Frontend:** Next.js, React, Material-UI
+<br>
 **Backend:** Node.js
+<br>
 **Cloud & DevOps:** Google Cloud Run, Docker, Terraform
+<br>
 **CI/CD:** GitHub Actions, Cloudflare
+<br>
 **Monitoring & Logging:** Grafana, Prometheus, Loki
+<br>
 **Security:** Cloudflare WAF, Bot Protection
 
 <br>
