@@ -1,151 +1,528 @@
 {
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": {
-            "type": "grafana",
-            "uid": "-- Grafana --"
-          },
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "type": "dashboard"
-        }
-      ]
-    },
-    "editable": true,
-    "fiscalYearStartMonth": 0,
-    "graphTooltip": 0,
-    "id": 1,
-    "links": [],
-    "panels": [
+  "annotations": {
+    "list": [
       {
+        "builtIn": 1,
         "datasource": {
-          "type": "stackdriver",
-          "uid": "cekzjwnjp260wa"
+          "type": "grafana",
+          "uid": "-- Grafana --"
         },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisBorderShow": false,
-              "axisCenteredZero": false,
-              "axisColorMode": "text",
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "barWidthFactor": 0.6,
-              "drawStyle": "line",
-              "fillOpacity": 0,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "insertNulls": false,
-              "lineInterpolation": "linear",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "auto",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green"
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 0,
-          "y": 0
-        },
-        "id": 1,
-        "options": {
-          "legend": {
-            "calcs": [],
-            "displayMode": "list",
-            "placement": "bottom",
-            "showLegend": true
-          },
-          "tooltip": {
-            "hideZeros": false,
-            "mode": "single",
-            "sort": "none"
-          }
-        },
-        "pluginVersion": "12.0.0",
-        "targets": [
-          {
-            "datasource": {
-              "type": "stackdriver",
-              "uid": "cekzjwnjp260wa"
-            },
-            "queryType": "timeSeriesList",
-            "refId": "A",
-            "timeSeriesList": {
-              "alignmentPeriod": "cloud-monitoring-auto",
-              "crossSeriesReducer": "REDUCE_MEAN",
-              "filters": [
-                "resource.label.service_name",
-                "=",
-                "portfolio-web",
-                "AND",
-                "metric.type",
-                "=",
-                "run.googleapis.com/container/cpu/utilizations"
-              ],
-              "groupBys": [],
-              "perSeriesAligner": "ALIGN_DELTA",
-              "preprocessor": "none",
-              "projectName": "portfolioproject-7841",
-              "view": "FULL"
-            }
-          }
-        ],
-        "title": "CPU Utilization",
-        "type": "timeseries"
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
       }
-    ],
-    "preload": false,
-    "schemaVersion": 41,
-    "tags": [],
-    "templating": {
-      "list": []
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 4,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "cekzjwnjp260wa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "cekzjwnjp260wa"
+          },
+          "queryType": "timeSeriesList",
+          "refId": "A",
+          "timeSeriesList": {
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "crossSeriesReducer": "REDUCE_MEAN",
+            "filters": [
+              "resource.label.service_name",
+              "=",
+              "portfolio-web",
+              "AND",
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/cpu/utilizations"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "preprocessor": "none",
+            "projectName": "portfolioproject-7841",
+            "view": "FULL"
+          }
+        }
+      ],
+      "title": "CPU Utilization",
+      "type": "timeseries"
     },
-    "time": {
-      "from": "now-6h",
-      "to": "now"
+    {
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "cekzjwnjp260wa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "queryType": "timeSeriesList",
+          "refId": "A",
+          "timeSeriesList": {
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "crossSeriesReducer": "REDUCE_MEAN",
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/memory/utilizations"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "preprocessor": "none",
+            "projectName": "portfolioproject-7841",
+            "view": "FULL"
+          }
+        }
+      ],
+      "title": "Memory Utilization",
+      "type": "timeseries"
     },
-    "timepicker": {},
-    "timezone": "browser",
-    "title": "Portfolio Cloud Run Service",
-    "uid": "5cb6b898-5445-4c74-a83c-d0579eb96e80",
-    "version": 2
-  }
+    {
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "cekzjwnjp260wa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "queryType": "timeSeriesList",
+          "refId": "A",
+          "timeSeriesList": {
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "crossSeriesReducer": "REDUCE_MEAN",
+            "filters": [
+              "resource.label.service_name",
+              "=",
+              "portfolio-web",
+              "AND",
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/max_request_concurrencies"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "preprocessor": "none",
+            "projectName": "portfolioproject-7841",
+            "view": "FULL"
+          }
+        }
+      ],
+      "title": "Request Count",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "cekzjwnjp260wa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "aliasBy": "",
+          "queryType": "timeSeriesList",
+          "refId": "A",
+          "timeSeriesList": {
+            "alignmentPeriod": "grafana-auto",
+            "crossSeriesReducer": "REDUCE_NONE",
+            "filters": [
+              "resource.label.service_name",
+              "=",
+              "portfolio-web",
+              "AND",
+              "metric.label.state",
+              "=",
+              "active",
+              "AND",
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/instance_count"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_NONE",
+            "preprocessor": "none",
+            "projectName": "portfolioproject-7841",
+            "view": "FULL"
+          }
+        }
+      ],
+      "title": "Active Instance Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "cekzjwnjp260wa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-red"
+              },
+              {
+                "color": "dark-red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 8
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "aliasBy": "",
+          "queryType": "timeSeriesList",
+          "refId": "A",
+          "timeSeriesList": {
+            "alignmentPeriod": "grafana-auto",
+            "crossSeriesReducer": "REDUCE_NONE",
+            "filters": [
+              "resource.label.service_name",
+              "=",
+              "portfolio-web",
+              "AND",
+              "metric.label.state",
+              "=",
+              "idle",
+              "AND",
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/instance_count"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_NONE",
+            "preprocessor": "none",
+            "projectName": "portfolioproject-7841",
+            "view": "FULL"
+          }
+        }
+      ],
+      "title": "Idle Instance Count",
+      "type": "stat"
+    }
+  ],
+  "preload": false,
+  "schemaVersion": 41,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Portfolio Cloud Run Service",
+  "uid": "5cb6b898-5445-4c74-a83c-d0579eb96e80",
+  "version": 13
+}
