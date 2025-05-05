@@ -10,6 +10,12 @@ variable "region" {
   type        = string
 }
 
+variable "zone" {
+  description = "GCP Deployment Zone"
+  type        = string
+  default     = "us-central1-a"
+}
+
 variable "cloud_run_name" {
   description = "Deployment Name"
   type        = string

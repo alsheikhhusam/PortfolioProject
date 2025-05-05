@@ -4,6 +4,7 @@ resource "google_compute_network" "grafana-vpc-network" {
     auto_create_subnetworks = false
 }
 
+// Subnetwork for Grafana
 resource "google_compute_subnetwork" "grafana-subnetwork" {
     name          = var.subnetwork_name
     ip_cidr_range = "10.0.1.0/24"
@@ -25,11 +26,18 @@ resource "google_project_iam_member" "grafana-monitoring-role" {
     role    = "roles/monitoring.viewer"
     member  = "serviceAccount:${google_service_account.grafana-monitoring-sa.email}"
 }
+resource "google_project_iam_member" "grafana-storage-viewer-role" {
+    project = var.project_id
+    role    = "roles/storage.objectViewer"
+    member  = "serviceAccount:${google_service_account.grafana-monitoring-sa.email}"
+}
+
 
 // VM for Grafana
 resource "google_compute_instance" "grafana-vm" {
     name     = var.vm_name
     machine_type = var.vm_size
+    zone    = var.zone
 
     deletion_protection = false
 
@@ -49,6 +57,28 @@ resource "google_compute_instance" "grafana-vm" {
         }
     }
 
+    metadata = {
+      startup-script = <<-SCRIPT
+            #* Exit immediately if a command exits with a non-zero status
+            set -e
+            set -x
+            
+            #* Install Grafana
+            apt-get update
+            apt-get install -y apt-transport-https software-properties-common wget
+            mkdir -p /etc/apt/keyrings/
+            wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
+            echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+            apt-get update
+            apt-get install -y grafana
+
+            #* Enable and start Grafana service
+            systemctl daemon-reload
+            systemctl start grafana-server
+            systemctl enable grafana-server
+        SCRIPT
+    }
+
     service_account {
         email = google_service_account.grafana-monitoring-sa.email
         scopes = ["cloud-platform"]
@@ -66,7 +96,7 @@ resource "google_compute_firewall" "allow-ssh" {
         ports    = ["22"]
     }
 
-    source_ranges = [var.private_ip]
+    source_ranges = [var.private_ip, "35.235.240.0/20"]
     target_tags   = ["grafana"]
 }
 
@@ -79,7 +109,7 @@ resource "google_compute_firewall" "allow-grafana" {
         ports    = ["3000"]
     }
 
-    source_ranges = ["10.0.1.0/24"]
+    source_ranges = ["10.0.1.0/24", var.private_ip]
     target_tags   = ["grafana"]
 }
 
