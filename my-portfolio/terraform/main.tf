@@ -1,7 +1,91 @@
-# Resources
+// Private Virtual Network and Subnetwork for Grafana
+resource "google_compute_network" "grafana-vpc-network" {
+    name = var.vpc_network_name
+    auto_create_subnetworks = false
+}
 
+resource "google_compute_subnetwork" "grafana-subnetwork" {
+    name          = var.subnetwork_name
+    ip_cidr_range = "10.0.1.0/24"
+    region = var.region
+    network = google_compute_network.grafana-vpc-network.self_link
+    private_ip_google_access = true
+}
+
+// Service Account for grafana
+resource "google_service_account" "grafana-monitoring-sa" {
+    account_id   = "grafana-monitoring-sa"
+    display_name = var.grafana_service_account_name
+    project      = var.project_id
+}
+
+// IAM Role for Grafana
+resource "google_project_iam_member" "grafana-monitoring-role" {
+    project = var.project_id
+    role    = "roles/monitoring.viewer"
+    member  = "serviceAccount:${google_service_account.grafana-monitoring-sa.email}"
+}
+
+// VM for Grafana
+resource "google_compute_instance" "grafana-vm" {
+    name     = var.vm_name
+    machine_type = var.vm_size
+
+    deletion_protection = false
+
+    tags = ["grafana", "private"]
+
+    boot_disk {
+        initialize_params {
+            image = "debian-cloud/debian-11"
+            size = 20
+        }
+    }
+
+    network_interface {
+        subnetwork = google_compute_subnetwork.grafana-subnetwork.self_link
+        access_config {
+            
+        }
+    }
+
+    service_account {
+        email = google_service_account.grafana-monitoring-sa.email
+        scopes = ["cloud-platform"]
+    }
+
+    allow_stopping_for_update = true
+}
+
+// Firewall Rule - Allow SSH
+resource "google_compute_firewall" "allow-ssh" {
+    name = "allow-ssh"
+    network = google_compute_network.grafana-vpc-network.name
+    allow {
+        protocol = "tcp"
+        ports    = ["22"]
+    }
+
+    source_ranges = [var.private_ip]
+    target_tags   = ["grafana"]
+}
+
+// Firewall Rule - Allow Grafana to communicate with cloud run service by opening port 3000
+resource "google_compute_firewall" "allow-grafana" {
+    name = "allow-grafana"
+    network = google_compute_network.grafana-vpc-network.name
+    allow {
+        protocol = "tcp"
+        ports    = ["3000"]
+    }
+
+    source_ranges = ["10.0.1.0/24"]
+    target_tags   = ["grafana"]
+}
+
+// Cloud Run Service - Deploying the web application
 resource "google_cloud_run_v2_service" "webapp-terraform" {
-    name     = var.name
+    name     = var.cloud_run_name
     location = var.region
 
     deletion_protection = false
@@ -14,6 +98,7 @@ resource "google_cloud_run_v2_service" "webapp-terraform" {
     }
 }
 
+// IAM Policy - Allow unauthenticated invocations to the Cloud Run service
 resource "google_cloud_run_v2_service_iam_policy" "no-auth" {
     name = google_cloud_run_v2_service.webapp-terraform.name
     project = google_cloud_run_v2_service.webapp-terraform.project
