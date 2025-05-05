@@ -59,6 +59,7 @@ resource "google_compute_instance" "grafana-vm" {
 
     metadata = {
       startup-script = <<-SCRIPT
+            #!/bin/bash
             #* Exit immediately if a command exits with a non-zero status
             set -e
             set -x
