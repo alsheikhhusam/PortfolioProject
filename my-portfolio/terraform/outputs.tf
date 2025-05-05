@@ -3,5 +3,5 @@ output "cloud_run_url" {
 }
 
 output "vm_ip" {
-  value = google_compute_instance.grafana-vm-instance.network_interface[0].network_ip
+  value = "http://${google_compute_instance.grafana-vm.network_interface[0].access_config[0].nat_ip}:3000"
 }
