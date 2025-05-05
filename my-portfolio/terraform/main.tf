@@ -1,45 +1,118 @@
-# Resources
-resource "google_cloud_run_service" "portfolio" {
-    name     = "portfolio-web"
-    location = var.region
+// Private Virtual Network and Subnetwork for Grafana
+resource "google_compute_network" "grafana-vpc-network" {
+    name = var.vpc_network_name
+    auto_create_subnetworks = false
+}
 
-    template {
-        metadata {
-            annotations = {
-                "autoscaling.knative.dev/minScale" = "1"
-            }
-        }
+resource "google_compute_subnetwork" "grafana-subnetwork" {
+    name          = var.subnetwork_name
+    ip_cidr_range = "10.0.1.0/24"
+    region = var.region
+    network = google_compute_network.grafana-vpc-network.self_link
+    private_ip_google_access = true
+}
 
-        spec {
-            containers {
-                image = "us-central1-docker.pkg.dev/${var.project_id}/${var.gcp_artifact_registry_repo}/portfolio:latest"
+// Service Account for grafana
+resource "google_service_account" "grafana-monitoring-sa" {
+    account_id   = "grafana-monitoring-sa"
+    display_name = var.grafana_service_account_name
+    project      = var.project_id
+}
 
-                resources {
-                    limits = {
-                        memory = "512Mi"
-                        cpu    = "1"
-                    }
-                }
-            }
+// IAM Role for Grafana
+resource "google_project_iam_member" "grafana-monitoring-role" {
+    project = var.project_id
+    role    = "roles/monitoring.viewer"
+    member  = "serviceAccount:${google_service_account.grafana-monitoring-sa.email}"
+}
+
+// VM for Grafana
+resource "google_compute_instance" "grafana-vm" {
+    name     = var.vm_name
+    machine_type = var.vm_size
+
+    deletion_protection = false
+
+    tags = ["grafana", "private"]
+
+    boot_disk {
+        initialize_params {
+            image = "debian-cloud/debian-11"
+            size = 20
         }
     }
 
+    network_interface {
+        subnetwork = google_compute_subnetwork.grafana-subnetwork.self_link
+        access_config {
+            
+        }
+    }
 
-    traffic {
-    percent         = 100
-    latest_revision = true
-  }
+    service_account {
+        email = google_service_account.grafana-monitoring-sa.email
+        scopes = ["cloud-platform"]
+    }
+
+    allow_stopping_for_update = true
 }
 
-# resource "google_cloud_run_domain_mapping" "portfolio_mapping" {
-#     name        = "husamalsheikh.info"
-#     location    = var.region
+// Firewall Rule - Allow SSH
+resource "google_compute_firewall" "allow-ssh" {
+    name = "allow-ssh"
+    network = google_compute_network.grafana-vpc-network.name
+    allow {
+        protocol = "tcp"
+        ports    = ["22"]
+    }
 
-#     metadata {
-#         namespace = google_cloud_run_service.portfolio.metadata[0].namespace
-#     }
+    source_ranges = [var.private_ip]
+    target_tags   = ["grafana"]
+}
 
-#     spec {
-#         route_name = google_cloud_run_service.portfolio.status[0].url
-#     }
-# }
+// Firewall Rule - Allow Grafana to communicate with cloud run service by opening port 3000
+resource "google_compute_firewall" "allow-grafana" {
+    name = "allow-grafana"
+    network = google_compute_network.grafana-vpc-network.name
+    allow {
+        protocol = "tcp"
+        ports    = ["3000"]
+    }
+
+    source_ranges = ["10.0.1.0/24"]
+    target_tags   = ["grafana"]
+}
+
+// Cloud Run Service - Deploying the web application
+resource "google_cloud_run_v2_service" "webapp-terraform" {
+    name     = var.cloud_run_name
+    location = var.region
+
+    deletion_protection = false
+
+    template {
+        containers {
+            // Artifact Registry URL for the container image
+            image = "us-central1-docker.pkg.dev/portfolioproject-7841/cloud-run-source-deploy-portfolio/portfolio@sha256:be5a9ab6913b6504e2d9eb3268db18026ed90f4d5af8ebb870b9bb9ba0a54ff2"
+        }
+    }
+}
+
+// IAM Policy - Allow unauthenticated invocations to the Cloud Run service
+resource "google_cloud_run_v2_service_iam_policy" "no-auth" {
+    name = google_cloud_run_v2_service.webapp-terraform.name
+    project = google_cloud_run_v2_service.webapp-terraform.project
+    location = google_cloud_run_v2_service.webapp-terraform.location
+
+    policy_data = data.google_iam_policy.public_iam_policy.policy_data
+}
+
+// Grant the special principalId "allUsers" access to the service via the IAM policy
+data google_iam_policy "public_iam_policy" {
+    binding {
+        role = "roles/run.invoker"
+        members = [
+            "allUsers",
+        ]
+    }
+}
