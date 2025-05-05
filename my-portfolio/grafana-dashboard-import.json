@@ -367,7 +367,19 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "run.googleapis.com/container/instance_count active"
+            },
+            "properties": [
+              {
+                "id": "links"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -450,7 +462,19 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "run.googleapis.com/container/instance_count idle"
+            },
+            "properties": [
+              {
+                "id": "links"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -517,12 +541,12 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Portfolio Cloud Run Service",
   "uid": "5cb6b898-5445-4c74-a83c-d0579eb96e80",
-  "version": 13
+  "version": 16
 }
