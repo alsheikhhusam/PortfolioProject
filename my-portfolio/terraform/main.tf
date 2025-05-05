@@ -110,7 +110,7 @@ resource "google_compute_firewall" "allow-grafana" {
         ports    = ["3000"]
     }
 
-    source_ranges = ["10.0.1.0/24", var.private_ip]
+    source_ranges = [var.private_ip, "10.0.1.0/24"]
     target_tags   = ["grafana"]
 }
 
