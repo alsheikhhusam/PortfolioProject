@@ -62,6 +62,8 @@ resource "google_compute_instance" "grafana-vm" {
             #!/bin/bash
             #* Exit immediately if a command exits with a non-zero status
             set -e
+
+            #* Print each command before executing it - Logging/Debugging assist
             set -x
             
             #* Install Grafana
