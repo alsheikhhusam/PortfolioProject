@@ -31,6 +31,11 @@ resource "google_project_iam_member" "grafana-storage-viewer-role" {
     role    = "roles/storage.objectViewer"
     member  = "serviceAccount:${google_service_account.grafana-monitoring-sa.email}"
 }
+resource "google_project_iam_member" "grafana-cloud-logging-role" {
+    project = var.project_id
+    role = "roles/logging.viewer"
+    member = "serviceAccount:${google_service_account.grafana-monitoring-sa.email}"
+}
 
 
 // VM for Grafana
@@ -57,6 +62,8 @@ resource "google_compute_instance" "grafana-vm" {
         }
     }
 
+    #! Reminder to change end-of-line to LF in VSCode before deploying
+    #! Linux VM will not accept CRLF line endings in the startup script below
     metadata = {
       startup-script = <<-SCRIPT
             #!/bin/bash

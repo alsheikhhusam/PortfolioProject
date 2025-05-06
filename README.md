@@ -36,7 +36,7 @@ This is my personal portfolio website built with **Next.js** and deployed on **G
 - **~~Implement a back button for easier navigation~~**
 - **Add Particles.js to the background**
 - **~~Implement monitoring via a Grafana Dashboard~~**
-- **Implement Prometheus for log aggregation in connection with Grafana for data Visualization**
+- **~~Implement Prometheus for log aggregation in connection with Grafana for data Visualization~~**
 - **Improve Site Security**
 - **Improve Site Resiliency**
 - **Implement Light/Dark mode toggle**
