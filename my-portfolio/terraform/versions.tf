@@ -7,7 +7,7 @@ terraform {
   }
 
   backend "gcs" {
-    bucket = " terraform-state-bucket-5868"
+    bucket = "terraform-state-bucket-5868"
     prefix = "production/terraform"
   }
 }
