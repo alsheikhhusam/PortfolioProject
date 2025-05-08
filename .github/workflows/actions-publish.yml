@@ -85,6 +85,19 @@ jobs:
       TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
     
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Google Cloud Authentication
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
@@ -93,12 +106,12 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-        # working-directory: my-portfolio/terraform
+        working-directory: my-portfolio/terraform
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -out=tfplan
-        # working-directory: my-portfolio/terraform
+        working-directory: my-portfolio/terraform
 
       - name: Upload Terraform Plan Artifact
         uses: actions/upload-artifact@v4
@@ -142,9 +155,9 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-        # working-directory: my-portfolio/terraform
+        working-directory: my-portfolio/terraform
 
       - name: Terraform Apply
         id: apply
         run: terraform apply -auto-approve tfplan
-        # working-directory: my-portfolio/terraform
+        working-directory: my-portfolio/terraform
