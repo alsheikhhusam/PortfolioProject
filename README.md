@@ -37,7 +37,8 @@ This is my personal portfolio website built with **Next.js** and deployed on **G
     - I declaratively define the state of the infrastructure and have it worry about how to achieve it.
     - I deploy the cloud run service, a vm for grafana, and a few service accounts for managing identities and authentication.
     - Good method for prod and enterprise as it leverages IaC to automate and standardize infrastructure, improve collaboration and scalability, reduce human error and improve security. 
-3. *Next way I will deploy this site is via Kubernetes as I enjoy working with it - InProgress*
+3. *Next will deploy to Azure using Bicep - InProgress*
+4. *Kubernetes*
 
 <br>
 
