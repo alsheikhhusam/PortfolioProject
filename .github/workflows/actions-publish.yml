@@ -58,9 +58,9 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/portfolio:latest
             ghcr.io/${{ github.repository_owner }}/portfolio:${{ github.sha }}
             ghcr.io/${{ github.repository_owner }}/portfolio:${{ env.branch_tag }}
-            us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:latest
-            us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ github.sha }}
-            us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ env.branch_tag }}
+            us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_TERRAFORM_REPO }}/portfolio:latest
+            us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_TERRAFORM_REPO }}/portfolio:${{ github.sha }}
+            us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_TERRAFORM_REPO }}/portfolio:${{ env.branch_tag }}
           cache-from: type=gha,mode=max
           cache-to: type=gha,mode=max
 
@@ -72,9 +72,9 @@ jobs:
 
       - name: Push to GAR
         run: |
-          docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:latest
-          docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ github.sha }}
-          docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ env.branch_tag }}    
+          docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_TERRAFORM_REPO }}/portfolio:latest
+          docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_TERRAFORM_REPO }}/portfolio:${{ github.sha }}
+          docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_TERRAFORM_REPO }}/portfolio:${{ env.branch_tag }}    
 
   terraform-plan:
     name: Terraform Plan
@@ -93,12 +93,12 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-        working-directory: ./my-portfolio/terraform
+        working-directory: my-portfolio/terraform
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -out=tfplan
-        working-directory: ./my-portfolio/terraform
+        working-directory: my-portfolio/terraform
 
       - name: Upload Terraform Plan Artifact
         uses: actions/upload-artifact@v4
@@ -142,9 +142,9 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-        working-directory: ./my-portfolio/terraform
+        working-directory: my-portfolio/terraform
 
       - name: Terraform Apply
         id: apply
         run: terraform apply -auto-approve tfplan
-        working-directory: ./my-portfolio/terraform
+        working-directory: my-portfolio/terraform
