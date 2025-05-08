@@ -2,5 +2,7 @@
 provider "google" {
   project = var.project_id
   region  = var.region
-  credentials = file(var.gcp_credentials_file_path)
+
+  #* Only needed locally for authentication - not in CI/CD
+  # credentials = file(var.gcp_credentials_file_path)
 }
