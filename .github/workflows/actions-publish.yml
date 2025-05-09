@@ -75,24 +75,12 @@ jobs:
           docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_TERRAFORM_REPO }}/portfolio:${{ github.sha }}
           docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_TERRAFORM_REPO }}/portfolio:${{ env.branch_tag }}
 
-  check_build_result:
-    runs-on: ubuntu-latest
-    needs: build-and-push
-    if: always()
-    steps:
-      - name: Print build-and-push result
-        run: |
-          echo "Value of needs.build-and-push.result is: ${{ needs.build-and-push.result }}"
-          echo "This check job's status is: ${{ job.status }}" # Also print the status of this check job
-
-
   terraform-plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
-    needs: check_build_result
-    if: false
+    needs: build-and-push
 
-    # if: needs.build-and-push.result == 'success' || needs.build-and-push.result == 'cancelled'
+    if: needs.build-and-push.result == 'success' || needs.build-and-push.result == 'skipped'
 
     env:
       TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
