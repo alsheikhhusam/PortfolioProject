@@ -8,6 +8,7 @@ on:
 
 jobs:
   build-and-push:
+    if: github.ref == 'refs/heads/terraform-dev'
     runs-on: ubuntu-latest
     strategy:
       matrix:
