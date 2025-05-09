@@ -1,5 +1,11 @@
 // Input Variables
 
+# // This file contains the input variables for the Terraform configuration. // Commented out as only used for local development and not in CI/CD
+# variable "gcp_credentials_file_path" {
+#   description = "Path to GCP credentials file"
+#   type        = string
+# }
+
 variable "project_id" {
   description = "GCP Project ID"
   type        = string
@@ -25,12 +31,6 @@ variable "gcp_artifact_registry_url" {
   description = "GCP Artifact Registry URL"
   type        = string
 }
-
-# variable "gcp_credentials_file_path" {
-#   description = "Path to GCP credentials file"
-#   type        = string
-# }
-
 variable "vpc_network_name" {
   description = "Name of the VPC network"
   type        = string
