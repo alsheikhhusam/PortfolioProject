@@ -78,6 +78,7 @@ jobs:
   check_build_result:
     runs-on: ubuntu-latest
     needs: build-and-push
+    if: always()
     steps:
       - name: Print build-and-push result
         run: |
@@ -89,6 +90,7 @@ jobs:
     name: Terraform Plan
     runs-on: ubuntu-latest
     needs: check_build_result
+    if: false
 
     # if: needs.build-and-push.result == 'success' || needs.build-and-push.result == 'cancelled'
 
