@@ -119,7 +119,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -out=tfplan
+        run: terraform plan -out=tfplan -lock=false
         working-directory: my-portfolio/terraform
 
       - name: Upload Terraform Plan Artifact
