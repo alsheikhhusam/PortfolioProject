@@ -83,16 +83,15 @@ jobs:
       - name: Print build-and-push result
         run: |
           echo "Value of needs.build-and-push.result is: ${{ needs.build-and-push.result }}"
-          echo "This check job's status is: ${{ job.status }}" # Also print the status of this check job
+          echo "This check job's status is: ${{ job.status }}"
 
 
   terraform-plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
     needs: check_build_result
-    if: false
 
-    # if: needs.build-and-push.result == 'success' || needs.build-and-push.result == 'cancelled'
+    if: needs.check_build_result.result == 'success' || needs.check_build_result.result == 'skipped'
 
     env:
       TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
