@@ -82,6 +82,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-and-push
 
+    if: needs.build-and-push.result == 'success' || needs.build-and-push.result == 'skipped'
+
     env:
       TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
       TF_VAR_cloud_run_name: ${{ vars.GCP_CLOUD_RUN_NAME }}
