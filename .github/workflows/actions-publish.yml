@@ -10,9 +10,7 @@ jobs:
   build-and-push:
     if: github.ref == 'refs/heads/terraform-dev'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        service: [my-portfolio]
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
