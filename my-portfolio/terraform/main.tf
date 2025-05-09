@@ -20,7 +20,7 @@ resource "google_service_account" "grafana-monitoring-sa" {
     project      = var.project_id
 }
 
-// IAM Role for Grafana
+// IAM Roles for Grafana
 resource "google_project_iam_member" "grafana-monitoring-role" {
     project = var.project_id
     role    = "roles/monitoring.viewer"
@@ -155,4 +155,19 @@ data google_iam_policy "public_iam_policy" {
             "allUsers",
         ]
     }
+}
+
+// DNS Mapping
+resource "google_cloud_run_domain_mapping" "custom_domain_mapping" {
+    location = var.region
+    depends_on = [ google_cloud_run_v2_service.webapp-terraform ]
+  metadata {
+    namespace = var.project_id
+  }
+
+  name    = "terraform.husamalsheikh.info"
+
+  spec {
+    route_name = google_cloud_run_v2_service.webapp-terraform.name
+  }
 }
