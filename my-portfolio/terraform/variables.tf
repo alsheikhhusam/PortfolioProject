@@ -26,11 +26,10 @@ variable "gcp_artifact_registry_url" {
   type        = string
 }
 
-variable "gcp_credentials_file_path" {
-  description = "Path to GCP credentials file"
-  type        = string
-  
-}
+# variable "gcp_credentials_file_path" {
+#   description = "Path to GCP credentials file"
+#   type        = string
+# }
 
 variable "vpc_network_name" {
   description = "Name of the VPC network"
