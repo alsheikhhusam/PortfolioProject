@@ -1,6 +1,9 @@
 name: Terraform Destroy (Manual Trigger)
 
 on:
+   label:
+    types:
+      - created
    workflow_dispatch:
     inputs:
       environment:
