@@ -1,10 +1,35 @@
 name: Terraform Destroy (Manual Trigger)
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      terraform-destroy:
+        description: 'Terraform Destroy'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - yes
+          - no
 
 jobs:
   destroy:
+    if: github.event.inputs.terraform-destroy == 'true'
+
     runs-on: ubuntu-latest
+
+    env:
+      TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
+      TF_VAR_cloud_run_name: ${{ vars.GCP_CLOUD_RUN_NAME }}
+      TF_VAR_private_ip: ${{ secrets.PRIVATE_IP }}
+      TF_VAR_region: ${{ vars.GCP_REGION }}
+      TF_VAR_zone: ${{ vars.GCP_ZONE }}
+      TF_VAR_vm_name: ${{ vars.GCP_VM_NAME }}
+      TF_VAR_vpc_network_name: ${{ vars.GCP_VPC_NETWORK_NAME }}
+      TF_VAR_subnetwork_name: ${{ vars.GCP_SUBNETWORK_NAME }}
+      TF_VAR_grafana_service_account_name: ${{ vars.GCP_GRAFANA_SA_NAME }}
+      TF_VAR_gcp_artifact_registry_url: ${{ vars.GCP_ARTIFACT_REGISTRY_URL }}
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -24,16 +49,13 @@ jobs:
         with:
           terraform_version: 1.11.4
 
-      - name: Configure Environment and Init
-        run: |
-          echo "Preparing to destroy environment: ${{ github.event.inputs.environment }}"
-          terraform init -backend-config="prefix=${{ github.event.inputs.environment }}/production/terraform"
+      - name: Terraform Init
+        id: init
+        run: terraform init
         working-directory: my-portfolio/terraform
         
       - name: Run Terraform Destroy
         run: |
-          echo "Executing terraform destroy for environment: ${{ github.event.inputs.environment }}"
-          # Use -auto-approve because it's triggered manually with confirmation
-          # Add -var-file="terraform.${{ github.event.inputs.environment }}.tfvars" if needed
+          echo "Executing terraform destroy"
           terraform destroy -auto-approve
         working-directory: my-portfolio/terraform
