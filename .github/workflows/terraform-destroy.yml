@@ -36,8 +36,8 @@ jobs:
 
       - name: Configure Environment and Init
         run: |
-          echo "Preparing to destroy environment"
-          terraform init"
+          echo "Preparing to destroy environment
+          terraform init
         working-directory: my-portfolio/terraform
         
       - name: Run Terraform Destroy
