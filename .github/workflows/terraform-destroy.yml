@@ -17,6 +17,7 @@ jobs:
     if: github.event.inputs.terraform-destroy == 'true'
 
     runs-on: ubuntu-latest
+    environment: prod
 
     env:
       TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
