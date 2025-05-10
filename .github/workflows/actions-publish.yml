@@ -11,9 +11,9 @@ on:
         description: 'Run build and push Docker image'
         required: true
         type: choice
-          options:
-            - yes
-            - no
+        options:
+          - yes
+          - no
 
 jobs:
   build-and-push:
