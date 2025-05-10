@@ -41,7 +41,7 @@ jobs:
       - name: Configure Environment and Init
         run: |
           echo "Preparing to destroy environment: ${{ github.event.inputs.environment }}"
-          terraform init -backend-config="prefix=${{ github.event.inputs.environment }}/terraform"
+          terraform init -backend-config="prefix=${{ github.event.inputs.environment }}/production/terraform"
         working-directory: my-portfolio/terraform
         
       - name: Run Terraform Destroy
