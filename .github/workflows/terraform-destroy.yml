@@ -1,9 +1,6 @@
 name: Terraform Destroy (Manual Trigger)
 
 on:
-   push:
-    branches:
-      - terraform-dev
    workflow_dispatch:
     inputs:
       environment:
