@@ -6,10 +6,19 @@ on:
       - terraform-dev
       - terraform-prod
   workflow_dispatch:
+    inputs:
+      run-build:
+        description: 'Build and Push Docker Image'
+        required: true
+        default: 'no'
+        type: choice
+        options:
+          - yes
+          - no
 
 jobs:
   build-and-push:
-    if:  github.ref_name == 'terraform-dev' && github.event.inputs.run-build == 'yes'
+    if:  github.ref_name == 'terraform-dev' && github.event.inputs.run-build == 'true'
 
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
