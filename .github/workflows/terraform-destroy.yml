@@ -6,7 +6,7 @@ on:
       terraform-destroy:
         description: 'Terraform Destroy'
         required: true
-        default: 'no'
+        default: 'false'
         type: choice
         options:
           - yes
@@ -36,14 +36,12 @@ jobs:
 
       - name: Configure Environment and Init
         run: |
-          echo "Preparing to destroy environment: ${{ github.event.inputs.environment }}"
-          terraform init -backend-config="prefix=${{ github.event.inputs.environment }}/terraform"
+          echo "Preparing to destroy environment"
+          terraform init"
         working-directory: my-portfolio/terraform
         
       - name: Run Terraform Destroy
         run: |
-          echo "Executing terraform destroy for environment: ${{ github.event.inputs.environment }}"
-          # Use -auto-approve because it's triggered manually with confirmation
-          # Add -var-file="terraform.${{ github.event.inputs.environment }}.tfvars" if needed
+          echo "Executing terraform destroy for environment"
           terraform destroy -auto-approve
         working-directory: my-portfolio/terraform
