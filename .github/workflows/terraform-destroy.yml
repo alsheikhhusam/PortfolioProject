@@ -14,7 +14,7 @@ on:
 
 jobs:
   destroy:
-    if: github.event.inputs.terraform-destroy == 'yes'
+    if: github.event.inputs.terraform-destroy == 'true'
 
     runs-on: ubuntu-latest
     steps:
