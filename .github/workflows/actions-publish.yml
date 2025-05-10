@@ -140,6 +140,7 @@ jobs:
     
   terraform-apply:
     if: github.ref == 'refs/heads/terraform-prod'
+    environment: prod
 
     name: Terraform Apply  
     runs-on: ubuntu-latest
