@@ -1,0 +1,48 @@
+name: Terraform Destroy (Manual Trigger)
+
+on:
+   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to destroy'
+        required: true
+        
+      confirm:
+        description: 'Confirm destruction: '
+        required: true
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Google Cloud Authentication
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.11.4
+
+      - name: Configure Environment and Init
+        run: |
+          echo "Preparing to destroy environment: ${{ github.event.inputs.environment }}"
+          terraform init -backend-config="prefix=${{ github.event.inputs.environment }}/terraform"
+        working-directory: my-portfolio/terraform
+        
+      - name: Run Terraform Destroy
+        run: |
+          echo "Executing terraform destroy for environment: ${{ github.event.inputs.environment }}"
+          # Use -auto-approve because it's triggered manually with confirmation
+          # Add -var-file="terraform.${{ github.event.inputs.environment }}.tfvars" if needed
+          terraform destroy -auto-approve
+        working-directory: my-portfolio/terraform
