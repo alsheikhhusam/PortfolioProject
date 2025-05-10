@@ -9,10 +9,10 @@ on:
 jobs:
   build-and-push:
     if: github.ref == 'refs/heads/terraform-dev'
+
+    name: Build and Push Docker Image
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        service: [my-portfolio]
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -80,9 +80,6 @@ jobs:
   terraform-plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
-    needs: build-and-push
-
-    if: needs.build-and-push.result == 'success' || needs.build-and-push.result == 'skipped'
 
     env:
       TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
@@ -132,10 +129,11 @@ jobs:
           path: my-portfolio/terraform/tfplan
     
   terraform-apply:
-    name: Terraform Apply
+    if: github.ref == 'refs/heads/terraform-prod'
+
+    name: Terraform Apply  
     runs-on: ubuntu-latest
     needs: terraform-plan
-    if: github.ref == 'refs/heads/terraform-prod'
 
     env:
       TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
