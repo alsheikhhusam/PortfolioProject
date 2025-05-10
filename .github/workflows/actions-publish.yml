@@ -6,15 +6,6 @@ on:
       - terraform-dev
       - terraform-prod
   workflow_dispatch:
-    inputs:
-      run-build:
-        description: 'Run build and push Docker image'
-        required: true
-        default: 'no'
-        type: choice
-        options:
-          - yes
-          - no
 
 jobs:
   build-and-push:
