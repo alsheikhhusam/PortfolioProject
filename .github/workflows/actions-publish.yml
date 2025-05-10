@@ -10,11 +10,10 @@ on:
       run-build:
         description: 'Run build and push Docker image'
         required: true
-        default: 'no'
         type: choice
-        options:
-          - yes
-          - no
+          options:
+            - yes
+            - no
 
 jobs:
   build-and-push:
