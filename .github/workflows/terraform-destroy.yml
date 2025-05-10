@@ -10,6 +10,11 @@ on:
       confirm:
         description: 'Confirm destruction'
         required: true
+        default: 'no'
+        type: choice
+        options:
+          - yes
+          - no
 
 jobs:
   destroy:
