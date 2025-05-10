@@ -18,7 +18,7 @@ on:
 
 jobs:
   build-and-push:
-    if:  (github.ref_name == 'terraform-dev') || (github.event.inputs.run-build == 'yes')
+    if:  github.ref_name == 'terraform-dev' && github.event.inputs.run-build == 'yes'
 
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
