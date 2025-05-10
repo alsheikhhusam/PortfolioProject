@@ -1,20 +1,6 @@
 name: Terraform Destroy (Manual Trigger)
 
-on:
-   workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Environment to destroy'
-        required: true
-        
-      confirm:
-        description: 'Confirm destruction'
-        required: true
-        default: 'no'
-        type: choice
-        options:
-          - yes
-          - no
+on: workflow_dispatch
 
 jobs:
   destroy:
