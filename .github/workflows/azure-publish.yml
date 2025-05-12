@@ -27,6 +27,11 @@ jobs:
               run: npm run build
               working-directory: my-portfolio
 
+            - name: Azure Login
+              uses: azure/login@v1
+              with:
+                creds: ${{ secrets.AZURE_CREDENTIAL }}
+
             - name: Deploy Azure Resources
               uses: azure/arm-deploy@v1
               with:
