@@ -30,6 +30,9 @@ jobs:
               run: npm run build
               working-directory: my-portfolio
 
+            - name: Enable Debug Logs
+              run: echo "AZURE_HTTP_LOGGING=body" >> $GITHUB_ENV
+
             - name: Azure Login
               uses: azure/login@v2
               with:
