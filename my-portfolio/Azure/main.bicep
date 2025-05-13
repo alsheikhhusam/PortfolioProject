@@ -16,7 +16,7 @@ var resourceToken = uniqueString(subscription().subscriptionId, location)
 
 @description('Create a resource group')
 resource rg 'Microsoft.Resources/resourceGroups@2024-03-01' = {
-  name: '${resourceGroupName}-${resourceToken}'
+  name: resourceGroupName
   location: location
 }
 
@@ -24,6 +24,7 @@ resource rg 'Microsoft.Resources/resourceGroups@2024-03-01' = {
 module swaModule './swa.bicep' = {
   name: 'deployStaticWebApp'
   scope: rg
+
   params: {
     staticWebAppName: '${staticWebAppName}-${resourceToken}'
     swalocation: swalocation
