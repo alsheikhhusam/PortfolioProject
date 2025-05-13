@@ -44,7 +44,7 @@ jobs:
               with:
                 resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP_NAME }}
                 subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-                template: ./Azure/main.bicep
+                template: ./my-portfolio/Azure/main.bicep
                 parameters: swaName=${{ vars.AZURE_STATIC_WEB_APP_NAME }}
                 failOnStdErr: false
 
