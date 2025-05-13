@@ -6,9 +6,6 @@ on:
             - azure-prod
     workflow_dispatch:
 
-permissions:
-  id-token: write
-  contents: read
 jobs:
     setup:
         name: Build and Deploy Job
@@ -29,16 +26,11 @@ jobs:
             - name: Build
               run: npm run build
               working-directory: my-portfolio
-
-            - name: Enable Debug Logs
-              run: echo "AZURE_HTTP_LOGGING=body" >> $GITHUB_ENV
-
+              
             - name: Azure Login
               uses: azure/login@v2
               with:
-                client-id: ${{ secrets.AZURE_CLIENT_ID }}
-                tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-                subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+                creds: ${{ secrets.AZURE_CREDENTIALS }}
 
             - name: Azure CLI script
               uses: azure/cli@v2
