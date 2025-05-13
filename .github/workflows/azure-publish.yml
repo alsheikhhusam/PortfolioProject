@@ -42,7 +42,6 @@ jobs:
             - name: Deploy Azure Resources
               uses: azure/arm-deploy@v1
               with:
-                resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP_NAME }}
                 subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
                 template: ./my-portfolio/Azure/main.bicep
                 parameters: swaName=${{ vars.AZURE_STATIC_WEB_APP_NAME }}
