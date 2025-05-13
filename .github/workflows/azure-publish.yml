@@ -47,18 +47,6 @@ jobs:
                 template: ./my-portfolio/Azure/main.bicep
                 failOnStdErr: false
 
-            - name: Get Resource Group and Static Web App Name
-              id: get_resources
-              run: |
-                RESOURCE_GROUP=$(az deployment sub show \
-                  --name deployStaticWebApp \
-                  --query "properties.outputs.resourceGroupName.value" -o tsv)
-                STATIC_WEB_APP_NAME=$(az deployment sub show \
-                  --name deployStaticWebApp \
-                  --query "properties.outputs.staticWebAppName.value" -o tsv)
-                echo "RESOURCE_GROUP=$RESOURCE_GROUP" >> $GITHUB_ENV
-                echo "STATIC_WEB_APP_NAME=$STATIC_WEB_APP_NAME" >> $GITHUB_ENV
-
             - name: Get Azure Static Web Apps API Token
               id: get_api_token
               run: |

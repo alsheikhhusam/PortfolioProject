@@ -25,3 +25,6 @@ resource swa 'Microsoft.Web/staticSites@2022-09-01' = {
 
 @description('Output the default hostname')
 output endpoint string = swa.properties.defaultHostname
+
+@description('Output the static web app name')
+output staticWebAppName string = swa.name
