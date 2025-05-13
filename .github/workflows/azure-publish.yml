@@ -43,6 +43,7 @@ jobs:
               uses: azure/arm-deploy@v1
               with:
                 subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+                resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP_NAME }}
                 template: ./my-portfolio/Azure/main.bicep
                 parameters: swaName=${{ vars.AZURE_STATIC_WEB_APP_NAME }}
                 failOnStdErr: false
