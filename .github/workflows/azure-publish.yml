@@ -11,9 +11,6 @@ jobs:
         name: Build and Deploy Job
         runs-on: ubuntu-latest
 
-        env:
-            AZURE_RESOURCE_GROUP_NAME: ${{ vars.AZURE_RESOURCE_GROUP_NAME }}
-
         steps:
             - uses: actions/checkout@v3
             
@@ -40,15 +37,12 @@ jobs:
                 resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP_NAME }}
                 template: ./my-portfolio/Azure/main.bicep
 
-            - name: Export SWA name
-              run: echo "STATIC_WEB_APP_NAME=${{ steps.infra.outputs.staticWebAppName }}" >> $GITHUB_ENV
-
             - name: Get SWA API Token
               id: get_api_token
               run: |
                 TOKEN=$(az staticwebapp secrets list \
-                  --name "$STATIC_WEB_APP_NAME" \
-                  --resource-group "$RESOURCE_GROUP" \
+                  --name ${{ vars.AZURE_STATIC_WEB_APP_NAME }} \
+                  --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} \
                   --query "properties.apiKey" -o tsv)
                 echo "AZURE_STATIC_WEB_APPS_API_TOKEN=$TOKEN" >> $GITHUB_ENV
             
