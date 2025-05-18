@@ -20,3 +20,6 @@ module swaModule './swa.bicep' = {
     sku: sku
   }
 }
+
+@description('Expose the Static Web App name')
+output staticWebAppName string = swaModule.outputs.staticWebAppName
