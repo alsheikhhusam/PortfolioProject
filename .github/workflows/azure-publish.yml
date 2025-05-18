@@ -13,6 +13,18 @@ jobs:
 
         steps:
             - uses: actions/checkout@v3
+
+            - name: Cache node_modules
+              uses: actions/cache@v3
+              with:
+                path: my-portfolio/node_modules
+                key: ${{ runner.os }}-node-${{ hashFiles('my-portfolio/package-lock.json') }}
+
+            - name: Cache .next folder
+              uses: actions/cache@v3
+              with:
+                path: my-portfolio/.next
+                key: ${{ runner.os }}-next-${{ hashFiles('my-portfolio/package-lock.json') }}
             
             - name: Set up Node.js
               uses: actions/setup-node@v3
@@ -53,4 +65,4 @@ jobs:
                 action: 'upload'
                 app_location: 'my-portfolio'
                 api_location: ''
-                output_location: '.next'
+                output_location: '.next/static'

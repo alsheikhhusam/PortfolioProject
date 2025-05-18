@@ -18,7 +18,7 @@ resource swa 'Microsoft.Web/staticSites@2022-09-01' = {
     buildProperties: {
       appLocation: 'my-portfolio'
       apiLocation: ''
-      outputLocation: '.next'
+      outputLocation: '.next/static'
     }
   }
 }
