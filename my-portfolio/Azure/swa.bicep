@@ -16,9 +16,9 @@ resource swa 'Microsoft.Web/staticSites@2022-09-01' = {
     branch: 'azure-prod'
 
     buildProperties: {
-      appLocation: '/my-portfolio'
-      outputLocation: '.next'
-      apiLocation: '/my-portfolio/api'
+      appLocation: 'my-portfolio'
+      apiLocation: 'my-portfolio/api'
+      outputLocation: 'out'
     }
   }
 }
