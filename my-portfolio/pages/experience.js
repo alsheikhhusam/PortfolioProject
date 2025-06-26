@@ -3,8 +3,16 @@ import { useRouter } from 'next/router';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const workExperience = [
-  {
+    {
     id: 1,
+    title: 'Cloud Operations Admin',
+    company: 'Inspira Financial',
+    duration: '06/2025 - Present',
+    responsibilities: [
+    ]
+  },
+  {
+    id: 2,
     title: 'Senior Cloud Engineer',
     company: 'LTIMindtree',
     duration: '04/2022 - 05/2025',
@@ -18,7 +26,7 @@ const workExperience = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     title: 'Software Engineer',
     company: 'Revature',
     duration: '01/2022 - 03/2022',
@@ -30,7 +38,7 @@ const workExperience = [
       'Fostered collaboration and communication between development and operations teams to streamline workflows and improve efficiency',
       'Secured cloud resources by configuring GCP service accounts and managing access controls',
     ],
-  },
+  }
 ];
 
 const certificates = [
