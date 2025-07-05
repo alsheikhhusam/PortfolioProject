@@ -24,7 +24,7 @@ jobs:
               working-directory: my-portfolio
             
             - name: Build
-              run: npm run build && rm rf .next
+              run: npm run build
               working-directory: my-portfolio
 
             - name: Azure Login
