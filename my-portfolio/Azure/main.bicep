@@ -1,6 +1,6 @@
 targetScope = 'subscription'
 
-param resourceGroupName string 'portfolio-rg'
+param resourceGroupName string = 'portfolio-rg'
 param location string = 'eastus'
 param webAppName string = uniqueString(resourceGroupName, 'my-portfolio-webapp')
 @allowed([ 'Free', 'Standard' ])
