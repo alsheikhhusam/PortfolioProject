@@ -24,7 +24,7 @@ jobs:
               working-directory: my-portfolio
             
             - name: Build
-              run: npm run build && rm rf .next
+              run: npm run build
               working-directory: my-portfolio
 
             - name: Azure Login
@@ -35,15 +35,18 @@ jobs:
             - name: Deploy Infrastructure
               uses: azure/arm-deploy@v1
               with:
-                subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-                resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP }}
-                template: ./my-portfolio/Azure/main.bicep
                 scope: subscription
+                subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+                region: ${{ vars.AZURE_REGION }}
+                template: ./my-portfolio/Azure/main.bicep
+                failOnStdErr: false
                 parameters: |
-                  location=eastus
+                  location=${{ vars.AZURE_REGION }}
+                  resourceGroupName=${{ vars.AZURE_RESOURCE_GROUP_NAME }}
                   sku=Free
                   linuxFxVersion='node|20-lts'
                   webAppName='portfolio-appservice'
+
             - name: Zip site contents
               run: |
                 cd my-portfolio
