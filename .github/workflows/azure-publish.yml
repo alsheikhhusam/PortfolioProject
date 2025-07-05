@@ -9,7 +9,7 @@ on:
 
 jobs:
     setup:
-        name: Build and Deploy Job
+        name: Build
         runs-on: ubuntu-latest
 
         steps:
@@ -27,11 +27,6 @@ jobs:
             - name: Build
               run: npm run build
               working-directory: my-portfolio
-
-            - name: Azure Login
-              uses: azure/login@v1
-              with:
-                creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     validate-deployment:
       runs-on: ubuntu-latest

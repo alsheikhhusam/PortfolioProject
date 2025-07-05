@@ -9,14 +9,6 @@ param linuxFxVersion string = 'node|20-lts'
 param repositoryUrl string = 'https://github.com/alsheikhhusam/PortfolioProject/tree/main/my-portfolio'
 param branch string = 'azure-prod'
 
-module createResourceGroup './create-rg.bicep' = {
-  name: 'createResourceGroup'
-  params: {
-    resourceGroupName: resourceGroupName
-    location: location
-  }
-}
-
 module appServiceDeploy './appservice.bicep' = {
   name: 'deployAppService'
   scope: resourceGroup(resourceGroupName)
