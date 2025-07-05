@@ -55,6 +55,10 @@ jobs:
               with:
                 creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+            - name: Upgrade Azure CLI
+              run: |
+                az upgrade --yes
+
             - name: Deploy Infrastructure
               uses: azure/arm-deploy@v1
               with:
