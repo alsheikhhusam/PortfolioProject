@@ -36,7 +36,6 @@ jobs:
               uses: azure/arm-deploy@v1
               with:
                 subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-                resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP_NAME }}
                 region: ${{ vars.AZURE_REGION }}
                 template: ./my-portfolio/Azure/main.bicep
                 scope: subscription
