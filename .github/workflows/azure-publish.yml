@@ -73,7 +73,6 @@ jobs:
                 subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
                 region: ${{ vars.AZURE_REGION }}
                 template: ./my-portfolio/Azure/main.bicep
-                deploymentMode: Incremental
 
             - name: Zip site contents
               run: |
