@@ -53,14 +53,14 @@ jobs:
                 subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
                 region: ${{ vars.AZURE_REGION }}
                 template: ./my-portfolio/Azure/main.bicep
-                failOnStdErr: false
-                parameters: '{
+                parameters: |
+                  {
                   "resourceGroupName": "${{ vars.AZURE_RESOURCE_GROUP_NAME }}",
                   "location": "${{ vars.AZURE_REGION }}",
                   "sku": "Free" ,
                   "linuxFxVersion": "node|20-lts",
                   "webAppName": "portfolio-appservice"
-                  }'
+                  }
 
             - name: Zip site contents
               run: |
