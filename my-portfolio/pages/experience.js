@@ -3,23 +3,8 @@ import { useRouter } from 'next/router';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const workExperience = [
-    {
-    id: 1,
-    title: 'Cloud Operations Admin',
-    company: 'Inspira Financial',
-    duration: '06/2025 - Present',
-    responsibilities: [
-      'Manage and optimize Azure cloud infrastructure, ensuring high availability, scalability, and cost efficiency across environments',
-      'Upgrade existing servers and decommission legacy servers, improving infrastructure reliability and maintaining compliance with organizational standards',
-      'Maintain and enhance CI/CD pipelines to streamline code integration, automate testing, and accelerate deployment cycles',
-      'Diagnose and resolve critical issues in development, staging, and production environments, minimizing downtime and service interruptions',
-      'Implement end-to-end monitoring solutions using Datadog, enabling proactive issue detection and performance optimization',
-      'Improve release management processes by refining deployment workflows and reducing release times through automation and process optimization',
-      'Collaborate with cross-functional teams to enhance operational reliability, drive continuous improvement, and support incident response initiatives'
-    ]
-  },
   {
-    id: 2,
+    id: 1,
     title: 'Senior Cloud Engineer',
     company: 'LTIMindtree',
     duration: '04/2022 - 05/2025',
@@ -33,7 +18,7 @@ const workExperience = [
     ],
   },
   {
-    id: 3,
+    id: 2,
     title: 'Software Engineer',
     company: 'Revature',
     duration: '01/2021 - 03/2022',
@@ -45,14 +30,13 @@ const workExperience = [
       'Fostered collaboration and communication between development and operations teams to streamline workflows and improve efficiency',
       'Secured cloud resources by configuring GCP service accounts and managing access controls',
     ],
-  }
+  },
 ];
 
 const certificates = [
-  { name: 'CKA Certified Kubernetes Administrator', url: null },
   { name: 'AZ-104 Microsoft Azure Administrative Associate', url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/277FEFC03D3706F8?sharingId=39C651685B6997D9' },
   { name: 'AZ-900 Microsoft Azure Fundamentals', url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/2288C16DA2EAD72E?sharingId=39C651685B6997D9' },
-  { name: 'AI-900 Microsoft Azure AI Fundamentals', url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/88BD6435182EA6E7?sharingId=39C651685B6997D9' }
+  { name: 'AI-900 Microsoft Azure AI Fundamentals', url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/88BD6435182EA6E7?sharingId=39C651685B6997D9' },
 ];
 
 const languages = [
@@ -138,10 +122,7 @@ export default function Experience() {
                   • {certificate.name}
                 </Link>
               ) : (
-                  <span>
-                    • {certificate.name}
-                    <span style={{ marginLeft: '0.5rem', fontStyle: 'italic', color: 'gray' }}>- in progress</span>
-                  </span>
+                <span>• {certificate.name}</span>
               )}
             </Typography>
           ))}
