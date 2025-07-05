@@ -59,13 +59,13 @@ jobs:
               run: |
                 az upgrade --yes
 
-            - name: Deploy Bicep
-              uses: azure/cli@v2
+            - name: Deploy Infrastructure
+              uses: azure/arm-deploy@v1
               with:
-                inlineScript: |
-                  az deployment sub create \
-                    --location eastus \
-                    --template-file ./my-portfolio/Azure/main.bicep
+                scope: subscription
+                subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+                region: ${{ vars.AZURE_REGION }}
+                template: ./my-portfolio/Azure/main.bicep
 
             - name: Zip site contents
               run: |
