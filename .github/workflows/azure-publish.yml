@@ -17,7 +17,7 @@ jobs:
             - name: Set up Node.js
               uses: actions/setup-node@v3
               with:
-                node-version: '18'
+                node-version: '20'
 
             - name: Install dependencies
               run: npm install
@@ -27,45 +27,33 @@ jobs:
               run: npm run build && rm rf .next
               working-directory: my-portfolio
 
-            - name: Deploy Azure Resources
+            - name: Azure Login
+              uses: azure/login@v1
+              with:
+                creds: ${{ secrets.AZURE_CREDENTIALS }}
+            
+            - name: Deploy Infrastructure
               uses: azure/arm-deploy@v1
               with:
                 subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-                resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP_NAME }}
-                template: my-portfolio/Azure/main.bicep
-                parameters: >
+                resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP }}
+                template: ./my-portfolio/Azure/main.bicep
+                scope: subscription
+                parameters: |
                   location=eastus
-                  swalocation=eastus2
-                  resourceGroupName=${{ vars.AZURE_RESOURCE_GROUP_NAME }}
-                  staticWebAppName=${{ vars.AZURE_STATIC_WEB_APP_NAME }}
                   sku=Free
-
-            - name: Get Resource Group and Static Web App Name
-              id: get_resources
+                  linuxFxVersion='node|20-lts'
+                  webAppName='portfolio-appservice'
+            - name: Zip site contents
               run: |
-                RESOURCE_GROUP=$(az deployment sub show \
-                  --name deployStaticWebApp \
-                  --query "properties.outputs.resourceGroupName.value" -o tsv)
-                STATIC_WEB_APP_NAME=$(az deployment sub show \
-                  --name deployStaticWebApp \
-                  --query "properties.outputs.staticWebAppName.value" -o tsv)
-                echo "RESOURCE_GROUP=$RESOURCE_GROUP" >> $GITHUB_ENV
-                echo "STATIC_WEB_APP_NAME=$STATIC_WEB_APP_NAME" >> $GITHUB_ENV
+                cd my-portfolio
+                zip -r ../app.zip .next public package.json package-lock.json
+              shell: bash
 
-            - name: Get Azure Static Web Apps API Token
-              id: get_api_token
-              run: |
-                API_TOKEN=$(az staticwebapp secrets list \
-                  --name $STATIC_WEB_APP_NAME \
-                  --resource-group $RESOURCE_GROUP \
-                  --query "properties.apiKey" -o tsv)
-                echo "AZURE_STATIC_WEB_APPS_API_TOKEN=$API_TOKEN" >> $GITHUB_SECRETS
-            
-            - name: Deploy to Azure
-              uses: Azure/static-web-apps-deploy@v1
+            - name: Deploy to Azure App Service
+              uses: azure/webapps-deploy@v2
               with:
-                azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-                action: 'upload'
-                app_location: '/my-portfolio'
-                api_location: 'my-portfolio/api'
-                output_location: '.next'
+                app-name: 'wapp-portfolio-appservice'
+                slot-name: 'production'
+                publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+                package: ./app.zip

@@ -1,32 +1,31 @@
 targetScope = 'subscription'
 
-param location string = 'eastus'
-
-param swalocation string = 'eastus2'
-
-param resourceGroupName string = 'portfolio-rg'
-
-param staticWebAppName string = 'portfolio-swa'
-
+param resourceGroupName string
+param location string
+param webAppName string = uniqueString(resourceGroupName, 'my-portfolio-webapp')
 @allowed([ 'Free', 'Standard' ])
 param sku string = 'Free'
+param linuxFxVersion string = 'node|20-lts'
+param repositoryUrl string = 'https://github.com/alsheikhhusam/PortfolioProject/tree/main/my-portfolio'
+param branch string = 'azure-prod'
 
-@description('String to make resource names unique')
-var resourceToken = uniqueString(subscription().subscriptionId, location)
-
-@description('Create a resource group')
-resource rg 'Microsoft.Resources/resourceGroups@2024-03-01' = {
-  name: '${resourceGroupName}-${resourceToken}'
-  location: location
+module createResourceGroup './create-rg.bicep' = {
+  name: 'createResourceGroup'
+  params: {
+    resourceGroupName: resourceGroupName
+    location: location
+  }
 }
 
-@description('Create a static web app')
-module swaModule './swa.bicep' = {
-  name: 'deployStaticWebApp'
-  scope: rg
+module appServiceDeploy './appservice.bicep' = {
+  name: 'deployAppService'
+  scope: resourceGroup(resourceGroupName)
   params: {
-    staticWebAppName: '${staticWebAppName}-${resourceToken}'
-    swalocation: swalocation
+    location: location
+    webAppName: webAppName
     sku: sku
+    linuxFxVersion: linuxFxVersion
+    repositoryUrl: repositoryUrl
+    branch: branch
   }
 }
