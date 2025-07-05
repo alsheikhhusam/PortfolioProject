@@ -1,21 +1,31 @@
-param swalocation string = 'eastus2'
+targetScope = 'subscription'
 
-param staticWebAppName string = 'portfolio-swa'
-
+param resourceGroupName string
+param location string
+param webAppName string = uniqueString(resourceGroupName, 'my-portfolio-webapp')
 @allowed([ 'Free', 'Standard' ])
 param sku string = 'Free'
+param linuxFxVersion string = 'node|20-lts'
+param repositoryUrl string = 'https://github.com/alsheikhhusam/PortfolioProject/tree/main/my-portfolio'
+param branch string = 'azure-prod'
 
-
-@description('Create a static web app')
-module swaModule './swa.bicep' = {
-  name: 'deployStaticWebApp'
-
+module createResourceGroup './create-rg.bicep' = {
+  name: 'createResourceGroup'
   params: {
-    staticWebAppName: staticWebAppName
-    swalocation: swalocation
-    sku: sku
+    resourceGroupName: resourceGroupName
+    location: location
   }
 }
 
-output staticWebAppName string = swaModule.outputs.staticWebAppName
-output staticWebAppUrl  string = swaModule.outputs.endpoint
+module appServiceDeploy './appservice.bicep' = {
+  name: 'deployAppService'
+  scope: resourceGroup(resourceGroupName)
+  params: {
+    location: location
+    webAppName: webAppName
+    sku: sku
+    linuxFxVersion: linuxFxVersion
+    repositoryUrl: repositoryUrl
+    branch: branch
+  }
+}
