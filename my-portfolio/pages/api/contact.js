@@ -37,7 +37,6 @@ export default async function handler(req, res) {
     }
 
     try {
-        // Create reusable transporter object
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -46,7 +45,6 @@ export default async function handler(req, res) {
             }
         });
 
-        // Email content
         const mailOptions = {
             from: `"Portfolio Contact" <${process.env.EMAIL}>`,
             replyTo: email,
