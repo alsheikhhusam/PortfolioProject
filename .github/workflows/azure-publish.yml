@@ -42,6 +42,7 @@ jobs:
                 scope: subscription
                 parameters: |
                   location=${{ vars.AZURE_REGION }}
+                  resourceGroupName=${{ vars.AZURE_RESOURCE_GROUP_NAME }}
                   sku=Free
                   linuxFxVersion='node|20-lts'
                   webAppName='portfolio-appservice'
