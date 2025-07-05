@@ -3,16 +3,8 @@ import { useRouter } from 'next/router';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const workExperience = [
-    {
-    id: 1,
-    title: 'Cloud Operations Admin',
-    company: 'Inspira Financial',
-    duration: '06/2025 - Present',
-    responsibilities: [
-    ]
-  },
   {
-    id: 2,
+    id: 1,
     title: 'Senior Cloud Engineer',
     company: 'LTIMindtree',
     duration: '04/2022 - 05/2025',
@@ -26,10 +18,10 @@ const workExperience = [
     ],
   },
   {
-    id: 3,
+    id: 2,
     title: 'Software Engineer',
     company: 'Revature',
-    duration: '01/2022 - 03/2022',
+    duration: '01/2021 - 03/2022',
     responsibilities: [
       'Streamlined software development processes by creating efficient CI/CD pipelines using Jenkins, incorporating static code analysis and ensuring high-availability deployments',
       'Enhanced application monitoring and observability through the implementation of Prometheus, Grafana, and a Metrics API',
@@ -38,7 +30,7 @@ const workExperience = [
       'Fostered collaboration and communication between development and operations teams to streamline workflows and improve efficiency',
       'Secured cloud resources by configuring GCP service accounts and managing access controls',
     ],
-  }
+  },
 ];
 
 const certificates = [
