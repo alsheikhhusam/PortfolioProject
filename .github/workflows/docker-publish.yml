@@ -101,7 +101,10 @@ jobs:
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated \
-            --project ${{ vars.GCP_PROJECT_ID }}
+            --project ${{ vars.GCP_PROJECT_ID }} \
+            --set-env-vars="EMAIL=${{ secrets.PORTFOLIO_GMAIL_ADDRESS }}" \
+            --set-env-vars="EMAIL_PASSWORD=${{ secrets.PORTFOLIO_GMAIL_PASSWORD }}" \
+            --set-env-vars="RECEIVER_EMAIL=${{ secrets.PORTFOLIO_RECEIVER_EMAIL }}"
 
       - name: Cleanup Old Revisions
         run: |
