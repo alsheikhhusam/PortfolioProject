@@ -64,7 +64,7 @@ jobs:
               with:
                 scope: resourcegroup
                 subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-                resourceGroupName: ${{ vars.RESOURCE_GROUP_NAME }}
+                resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP_NAME }}
                 region: ${{ vars.AZURE_REGION }}
                 template: ./my-portfolio/Azure/main.bicep
 
