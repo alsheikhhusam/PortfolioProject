@@ -65,7 +65,7 @@ jobs:
                 inlineScript: |
                   az deployment group create \
                     --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-                    --location eastus2 \
+                    --location eastus \
                     --template-file ./my-portfolio/Azure/main.bicep
 
             - name: Zip site contents

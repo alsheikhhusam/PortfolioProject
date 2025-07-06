@@ -1,5 +1,5 @@
 param resourceGroupName string = 'portfolio-rg'
-param location string = 'eastus2'
+param location string = 'eastus'
 param webAppName string = uniqueString(resourceGroupName, 'my-portfolio-webapp')
 @allowed([ 'F1', 'S1' ])
 param sku string = 'S1'
