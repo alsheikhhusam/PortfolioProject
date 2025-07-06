@@ -64,6 +64,7 @@ jobs:
               with:
                 inlineScript: |
                   az deployment group create \
+                    --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
                     --location eastus2 \
                     --template-file ./my-portfolio/Azure/main.bicep
 
