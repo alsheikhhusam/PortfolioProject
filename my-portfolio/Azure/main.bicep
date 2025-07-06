@@ -1,21 +1,13 @@
 targetScope = 'subscription'
 
 param resourceGroupName string = 'portfolio-rg'
-param location string = 'eastus'
+param location string = 'eastus2'
 param webAppName string = uniqueString(resourceGroupName, 'my-portfolio-webapp')
-@allowed([ 'Free', 'Standard' ])
-param sku string = 'Free'
+@allowed([ 'F1', 'S1' ])
+param sku string = 'S1'
 param linuxFxVersion string = 'node|20-lts'
 param repositoryUrl string = 'https://github.com/alsheikhhusam/PortfolioProject/tree/main/my-portfolio'
 param branch string = 'azure-prod'
-
-module createResourceGroup './create-rg.bicep' = {
-  name: 'createResourceGroup'
-  params: {
-    resourceGroupName: resourceGroupName
-    location: location
-  }
-}
 
 module appServiceDeploy './appservice.bicep' = {
   name: 'deployAppService'
