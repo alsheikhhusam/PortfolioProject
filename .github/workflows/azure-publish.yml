@@ -63,7 +63,7 @@ jobs:
               uses: azure/cli@v2
               with:
                 inlineScript: |
-                  az deployment sub create \
+                  az deployment group create \
                     --location eastus2 \
                     --template-file ./my-portfolio/Azure/main.bicep
 
