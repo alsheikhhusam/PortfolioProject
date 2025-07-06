@@ -1,5 +1,3 @@
-targetScope = 'resourceGroup'
-
 param webAppName string
 param sku string
 param linuxFxVersion string
@@ -10,7 +8,7 @@ param branch string
 var appServicePlanName = toLower('AppServicePlan-${webAppName}')
 var webSiteName = toLower('wapp-${webAppName}')
 
-resource appServicePlan 'Microsoft.Web/serverfarms@2024-11-01' = {
+resource appServicePlan 'Microsoft.Web/serverfarms@2024-04-01' = {
   name: appServicePlanName
   location: location
   kind: 'linux'
@@ -22,7 +20,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2024-11-01' = {
   }
 }
 
-resource appService 'Microsoft.Web/sites@2024-11-01' = {
+resource appService 'Microsoft.Web/sites@2024-04-01' = {
   name: webSiteName
   location: location
   kind: 'app,linux'
@@ -35,7 +33,7 @@ resource appService 'Microsoft.Web/sites@2024-11-01' = {
   }
 }
 
-resource sourceControl 'Microsoft.Web/sites/sourcecontrols@2024-11-01' = {
+resource sourceControl 'Microsoft.Web/sites/sourcecontrols@2024-04-01' = {
   parent: appService
   name: 'web'
   properties: {
