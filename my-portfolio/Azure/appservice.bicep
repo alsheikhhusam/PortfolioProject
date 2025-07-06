@@ -15,7 +15,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2024-11-01' = {
   location: location
   kind: 'linux'
   sku: {
-    tier: sku
+    name: sku
   }
   properties: {
     reserved: true
