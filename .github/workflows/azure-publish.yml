@@ -60,13 +60,14 @@ jobs:
                 az upgrade --yes
 
             - name: Deploy Infrastructure
-              uses: azure/arm-deploy@v1
+              uses: azure/arm-deploy@v2
               with:
                 scope: resourcegroup
                 subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
                 resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP_NAME }}
                 region: ${{ vars.AZURE_REGION }}
                 template: ./my-portfolio/Azure/main.bicep
+                additionalArguments: "--debug"
 
             - name: Zip site contents
               run: |
