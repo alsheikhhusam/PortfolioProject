@@ -64,7 +64,7 @@ jobs:
               with:
                 inlineScript: |
                   az deployment sub create \
-                    --location eastus \
+                    --location eastus2 \
                     --template-file ./my-portfolio/Azure/main.bicep
 
             - name: Zip site contents

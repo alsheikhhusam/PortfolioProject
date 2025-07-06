@@ -1,5 +1,3 @@
-targetScope = 'subscription'
-
 param resourceGroupName string = 'portfolio-rg'
 param location string = 'eastus2'
 param webAppName string = uniqueString(resourceGroupName, 'my-portfolio-webapp')
