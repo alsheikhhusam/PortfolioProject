@@ -1,11 +1,11 @@
 name: Azure CI/CD
 
 on:
-    push:
-        branches:
-            - azure-dev
-            - azure-prod
-    workflow_dispatch:
+  push:
+      branches:
+          - azure-dev
+          - azure-prod
+  workflow_dispatch:
 
 jobs:
     setup:
