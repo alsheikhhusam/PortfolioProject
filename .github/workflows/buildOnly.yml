@@ -1,9 +1,6 @@
 name: Build CI/CD
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
@@ -32,7 +29,7 @@ jobs:
         run: |
           # Extract and sanitize the branch name (only alphanumeric and dashes)
           BRANCH_NAME="${GITHUB_REF##*/}"
-          
+
           SANITIZED_BRANCH_NAME=$(echo "$BRANCH_NAME" | tr -cd '[:alnum:]-')
 
           echo "branch_tag=$SANITIZED_BRANCH_NAME" >> $GITHUB_OUTPUT
