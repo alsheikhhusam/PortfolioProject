@@ -15,3 +15,4 @@ out/
 .terraform/
 my-portfolio/terraform/.terraform.lock.hcl
 /.vscode
+.vscode/settings.json
