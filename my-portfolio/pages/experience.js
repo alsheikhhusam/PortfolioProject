@@ -36,7 +36,7 @@ const workExperience = [
     id: 3,
     title: 'Software Engineer',
     company: 'Revature',
-    duration: '01/2021 - 03/2022',
+    duration: '01/2022 - 03/2022',
     responsibilities: [
       'Streamlined software development processes by creating efficient CI/CD pipelines using Jenkins, incorporating static code analysis and ensuring high-availability deployments',
       'Enhanced application monitoring and observability through the implementation of Prometheus, Grafana, and a Metrics API',
