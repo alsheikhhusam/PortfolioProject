@@ -95,7 +95,7 @@ jobs:
     environment:
       name: 'prod'
     
-      steps:
+    steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
