@@ -1,10 +1,21 @@
 name: Terraform CI/CD
 
+# on:
+#   push:
+#     branches:
+#       - terraform
+
 on:
-  push:
-    branches:
-      - terraform-dev
-      - terraform-prod
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Deploy via Terraform (PROD)'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - yes
+          - no
 
 jobs:
   build-and-push:
@@ -81,6 +92,7 @@ jobs:
   terraform-plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
+    environment: dev
 
     env:
       TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
@@ -130,11 +142,10 @@ jobs:
           path: my-portfolio/terraform/tfplan
     
   terraform-apply:
-    if: github.ref == 'refs/heads/terraform-prod'
-
     name: Terraform Apply  
     runs-on: ubuntu-latest
     needs: terraform-plan
+    if: github.event.inputs.deploy == 'true'
     environment: prod
 
     env:
