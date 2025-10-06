@@ -1,0 +1,97 @@
+name: Azure CI/CD
+
+# on:
+#     push:
+#         branches:
+#             - azure
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Deploy to Azure (PROD)'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - yes
+          - no
+
+jobs:
+    setup:
+        name: Build
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+            
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: '20'
+
+            - name: Install dependencies
+              run: npm install
+              working-directory: my-portfolio
+            
+            - name: Build
+              run: npm run build
+              working-directory: my-portfolio
+
+    validate-deployment:
+      runs-on: ubuntu-latest
+      needs: setup
+      environment: dev
+      
+      steps:
+            - uses: actions/checkout@v3
+
+            - name: Azure Login
+              uses: azure/login@v1
+              with:
+                creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+            - name: Validate Bicep File
+              run: az bicep build --file ./my-portfolio/Azure/main.bicep
+
+    deploy:
+      runs-on: ubuntu-latest
+      needs: setup
+      if: github.event.inputs.deploy == 'true'
+      environment: prod
+
+      steps:
+            - uses: actions/checkout@v3
+
+            - name: Azure Login
+              uses: azure/login@v1
+              with:
+                creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+            - name: Upgrade Azure CLI
+              run: |
+                az upgrade --yes
+
+            - name: Deploy Infrastructure
+              uses: azure/arm-deploy@v2
+              with:
+                scope: resourcegroup
+                subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+                resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP_NAME }}
+                region: ${{ vars.AZURE_REGION }}
+                template: ./my-portfolio/Azure/main.bicep
+                additionalArguments: "--debug"
+
+            - name: Zip site contents
+              run: |
+                cd my-portfolio
+                zip -r ../app.zip .next public package.json package-lock.json
+              shell: bash
+
+            - name: Deploy to Azure App Service
+              uses: azure/webapps-deploy@v2
+              with:
+                app-name: 'wapp-portfolio-appservice'
+                slot-name: 'production'
+                publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+                package: ./app.zip
