@@ -1,10 +1,18 @@
-name: CI/CD
+name: GCP CI/CD
+
+# on:
+#   push:
+#     branches:
+#       - gcp
 
 on:
-  push:
-    branches:
-      - gcp prod
-      - gcp dev
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Check to run the deploy job after build-and-push (requires environment approval).'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   build-and-push:
@@ -46,7 +54,7 @@ jobs:
           # Extract and sanitize the branch name (only alphanumeric and dashes)
           BRANCH_NAME="${GITHUB_REF##*/}"
           SANITIZED_BRANCH_NAME=$(echo "$BRANCH_NAME" | tr -cd '[:alnum:]-')
-          echo "branch_tag=$SANITIZED_BRANCH_NAME" >> $GITHUB_ENV
+          echo "branch_tag=$SANITIZED_BRANCH_NAME" >> $GITHUB_OUTPUT
 
       - name: Build Docker Image
         uses: docker/build-push-action@v5
@@ -57,10 +65,10 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository_owner }}/portfolio:latest
             ghcr.io/${{ github.repository_owner }}/portfolio:${{ github.sha }}
-            ghcr.io/${{ github.repository_owner }}/portfolio:${{ env.branch_tag }}
+            ghcr.io/${{ github.repository_owner }}/portfolio:${{ steps.branch_tag.outputs.branch_tag }}
             us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:latest
             us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ github.sha }}
-            us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ env.branch_tag }}
+            us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ steps.branch_tag.outputs.branch_tag }}
           cache-from: type=gha,mode=max
           cache-to: type=gha,mode=max
 
@@ -68,18 +76,20 @@ jobs:
         run: |
           docker push ghcr.io/${{ github.repository_owner }}/portfolio:latest
           docker push ghcr.io/${{ github.repository_owner }}/portfolio:${{ github.sha }}
-          docker push ghcr.io/${{ github.repository_owner }}/portfolio:${{ env.branch_tag }}
+          docker push ghcr.io/${{ github.repository_owner }}/portfolio:${{ steps.branch_tag.outputs.branch_tag }}
 
       - name: Push to GAR
         run: |
           docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:latest
           docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ github.sha }}
-          docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ env.branch_tag }}
+          docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPO }}/portfolio:${{ steps.branch_tag.outputs.branch_tag }}
 
   deploy:
     runs-on: ubuntu-latest
     needs: build-and-push
-    if: github.ref_name == 'gcp prod'
+    if: ${{ github.event.inputs.deploy }}
+    environment:
+      name: 'prod'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
