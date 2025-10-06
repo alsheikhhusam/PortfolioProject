@@ -11,7 +11,8 @@ jobs:
   cleanup:
     runs-on: ubuntu-latest
     steps:
-      - uses: snok/container-retention-policy@v3.0.1
+      - id: cleanup
+        uses: snok/container-retention-policy@v3.0.1
         with:
           account: ${{ github.event.repository.owner.type == 'Organization' && github.repository_owner || 'user' }}
           image-names: ${{ github.event.repository.name }}
@@ -19,6 +20,12 @@ jobs:
           keep-n-most-recent: 15
           tag-selection: both
           cut-off: 30d
+          # Diagnostics: run in dry-run mode and enable debug logging to inspect
+          # the action behavior without deleting anything.
+          dry-run: true
+          rust-log: container_retention_policy=debug
 
-          # Optional safety: set to true for a dry-run to see what would be deleted
-          dry-run: false
+      - name: Print container-retention-policy outputs
+        run: |
+          echo "deleted=${{ steps.cleanup.outputs.deleted }}"
+          echo "failed=${{ steps.cleanup.outputs.failed }}"
