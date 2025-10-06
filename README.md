@@ -37,8 +37,11 @@ This is my personal portfolio website built with **Next.js** and deployed on **G
     - I declaratively define the state of the infrastructure and have it worry about how to achieve it.
     - I deploy the cloud run service, a vm for grafana, and a few service accounts for managing identities and authentication.
     - Good method for prod and enterprise as it leverages IaC to automate and standardize infrastructure, improve collaboration and scalability, reduce human error and improve security. 
-3. *Next will deploy to Azure using Bicep - InProgress*
-4. *Kubernetes*
+3. Third is deploying via a self hosted Kubernetes (k8s) cluster.
+    - The portfolio runs as a Deployment that utilizes Cloudflare managing DNS and security. Updates deploy automatically through GitOps or CI/CD, ensuring HA and autoscaling.
+    - Offers full control, scalability, and resilience with tools like Prometheus, Grafana, and cert-manager. Ideal for production or complex setups.
+    - Comes with maintenance overhead since you manage the cluster, updates, and monitoring yourself — best for advanced or multi-service environments.
+4. *Next will deploy to Azure using Bicep - InProgress*
 
 <br>
 
