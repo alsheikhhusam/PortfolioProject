@@ -1,0 +1,23 @@
+name: GHCR cleanup
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: snok/container-retention-policy@v3.0.1
+        with:
+          account: ${{ github.repository_owner }}
+          image-names: ${{ github.event.repository.name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          keep-n-most-recent: 15
+          tag-selection: both
+          cut-off: 30d
+          
+          # Optional safety: set to true for a dry-run to see what would be deleted
+          dry-run: false
