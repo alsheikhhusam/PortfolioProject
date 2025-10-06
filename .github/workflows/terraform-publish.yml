@@ -19,11 +19,8 @@ on:
 
 jobs:
   build-and-push:
-    if:  github.ref_name == 'terraform-dev'
-
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
-    environment: dev
 
     steps:
       - name: Checkout Repository
@@ -92,7 +89,6 @@ jobs:
   terraform-plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
-    environment: dev
 
     env:
       TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
