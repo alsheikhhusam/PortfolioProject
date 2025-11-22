@@ -5,17 +5,16 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const workExperience = [
     {
     id: 1,
-    title: 'Cloud Operations Admin',
-    company: 'Inspira Financial',
-    duration: '06/2025 - Present',
+    title: 'Software Engineer',
+    company: 'Revature',
+    duration: '01/2022 - 03/2022',
     responsibilities: [
-      'Manage and optimize Azure cloud infrastructure, ensuring high availability, scalability, and cost efficiency across environments',
-      'Upgrade existing servers and decommission legacy servers, improving infrastructure reliability and maintaining compliance with organizational standards',
-      'Maintain and enhance CI/CD pipelines to streamline code integration, automate testing, and accelerate deployment cycles',
-      'Diagnose and resolve critical issues in development, staging, and production environments, minimizing downtime and service interruptions',
-      'Implement end-to-end monitoring solutions using Datadog, enabling proactive issue detection and performance optimization',
-      'Improve release management processes by refining deployment workflows and reducing release times through automation and process optimization',
-      'Collaborate with cross-functional teams to enhance operational reliability, drive continuous improvement, and support incident response initiatives'
+      'Streamlined software development processes by creating efficient CI/CD pipelines using Jenkins, incorporating static code analysis and ensuring high-availability deployments',
+      'Enhanced application monitoring and observability through the implementation of Prometheus, Grafana, and a Metrics API',
+      'Managed and optimized Google Kubernetes Engine (GKE) and Google Compute Engine (GCE) resources',
+      'Automated infrastructure provisioning using Terraform scripts to create Kubernetes and Compute Engine environments',
+      'Fostered collaboration and communication between development and operations teams to streamline workflows and improve efficiency',
+      'Secured cloud resources by configuring GCP service accounts and managing access controls',
     ]
   },
   {
@@ -30,21 +29,22 @@ const workExperience = [
       'Develop and maintain incident response plans',
       'Writing documentation on manuals, help guides, and other support material on new processes',
       'Train new members on essential skills, practices and guidelines within the team',
-    ],
+    ]
   },
   {
     id: 3,
-    title: 'Software Engineer',
-    company: 'Revature',
-    duration: '01/2022 - 03/2022',
+    title: 'Cloud Operations Admin',
+    company: 'Inspira Financial',
+    duration: '06/2025 - Present',
     responsibilities: [
-      'Streamlined software development processes by creating efficient CI/CD pipelines using Jenkins, incorporating static code analysis and ensuring high-availability deployments',
-      'Enhanced application monitoring and observability through the implementation of Prometheus, Grafana, and a Metrics API',
-      'Managed and optimized Google Kubernetes Engine (GKE) and Google Compute Engine (GCE) resources',
-      'Automated infrastructure provisioning using Terraform scripts to create Kubernetes and Compute Engine environments',
-      'Fostered collaboration and communication between development and operations teams to streamline workflows and improve efficiency',
-      'Secured cloud resources by configuring GCP service accounts and managing access controls',
-    ],
+      'Manage and optimize Azure cloud infrastructure, ensuring high availability, scalability, and cost efficiency across environments',
+      'Upgrade existing servers and decommission legacy servers, improving infrastructure reliability and maintaining compliance with organizational standards',
+      'Maintain and enhance CI/CD pipelines to streamline code integration, automate testing, and accelerate deployment cycles',
+      'Diagnose and resolve critical issues in development, staging, and production environments, minimizing downtime and service interruptions',
+      'Implement end-to-end monitoring solutions using Datadog, enabling proactive issue detection and performance optimization',
+      'Improve release management processes by refining deployment workflows and reducing release times through automation and process optimization',
+      'Collaborate with cross-functional teams to enhance operational reliability, drive continuous improvement, and support incident response initiatives'
+    ]
   }
 ];
 
@@ -89,7 +89,7 @@ export default function Experience() {
           Work Experience
         </Typography>
         <Divider sx={{ mb: 4 }} />
-        {workExperience.map((job) => (
+        {workExperience.slice().reverse().map((job) => (
           <Box key={job.id} sx={{ mb: 4 }}>
             <Typography variant="h3" color="secondary.main" fontWeight="bold">
               {job.title}
