@@ -5,172 +5,26 @@ import { useRouter } from "next/router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const skills = [
-    {
-        category: "Cloud",
-        items: ["Azure", "Google Cloud Platform", "Incident Management"]
-    },
-    {
-        category: "DevOps",
-        items: ["Docker", "Kubernetes", "Git", "Terraform", "Bicep", "CI/CD"]
-    },
-    {
-        category: "Monitoring",
-        items: ["Grafana", "Loki", "Prometheus", "Promtail"]
-    },
-    {
-        category: "Languages",
-        items: ["Java", "C++", "C#", "Kotlin"]
-    },
-    {
-        category: "Spring",
-        items: ["Spring Boot", "Spring MVC", "Spring Data", "REST"]
-    },
-    {
-        category: "Web Technologies",
-        items: ["React Native", "JavaScript", "NextJS"]
-    },
-    {
-        category: "Databases",
-        items: ["KQL", "PostgreSQL", "MySQL"]
-    },
+    "Azure",
+    "Google Cloud Platform",
+    "Incident Management",
+    "Azure DevOps",
+    "Docker",
+    "Kubernetes",
+    "Git", "Terraform",
+    "Bicep",
+    "CI/CD",
+    "Datadog",
+    "Grafana",
+    "Loki",
+    "Prometheus",
+    "Promtail",
+    "KQL",
+    "PostgreSQL",
+    "MySQL"
 ];
 
-// Utility to split the array into columns dynamically and evenly
-const splitSkills = (skills, numColumns = 2) => {
-    const columns = Array.from({ length: numColumns }, () => []);
-
-    skills.forEach((skill, index) => {
-        columns[index % numColumns].push(skill);
-    });
-
-    // Ensure all columns have the same number of elements
-    const minLength = Math.min(...columns.map((col) => col.length));
-    columns.forEach((col, index) => {
-        if (col.length > minLength) {
-            col.pop(); // Remove the last element from the column if it's longer
-        }
-    });
-
-    return columns;
-};
-
-// Reusable component to render a skill column
-const SkillColumn = ({ categories, align = "left" }) => (
-    <Box
-        sx={{
-            flex: "1 1 0",
-            display: "flex",
-            flexDirection: "column",
-            gap: 5,
-            justifyContent: "space-between"
-        }}
-    >
-        {categories.map((skillCategory) => (
-            <Box key={skillCategory.category}>
-                <Typography
-                    variant="subtitle1"
-                    sx={{
-                        fontWeight: "bold",
-                        fontSize: "1.5rem",
-                        mb: 2,
-                        color: "text.secondary",
-                        textTransform: "uppercase",
-                        letterSpacing: 2,
-                        textAlign: align,
-                    }}
-                >
-                    {skillCategory.category}
-                </Typography>
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: 1,
-                        justifyContent: align === "right" ? "flex-end" : "flex-start",
-                    }}
-                >
-                    {skillCategory.items.map((item) => (
-                        <Chip
-                            key={item}
-                            label={item}
-                            variant="outlined"
-                            color="primary"
-                            sx={{
-                                fontSize: "1.25rem",
-                                fontWeight: "semi-bold",
-                                padding: 2
-                            }}
-                        />
-                    ))}
-                </Box>
-            </Box>
-        ))}
-    </Box>
-);
-
-SkillColumn.propTypes = {
-    categories: PropTypes.arrayOf(
-        PropTypes.shape({
-                category: PropTypes.string.isRequired,
-                items: PropTypes.arrayOf(PropTypes.string).isRequired,
-        })
-    ).isRequired,
-    align: PropTypes.oneOf(["left", "right"]),
-};
-
-// Reusable component for the odd category
-const OddCategory = ({ category }) => category ? (
-    <Box textAlign="center" sx={{ mt: 4 }}>
-        <Typography
-            variant="subtitle1"
-            sx={{
-                fontWeight: "bold",
-                fontSize: "1.5rem",
-                mb: 2,
-                color: "text.secondary",
-                textTransform: "uppercase",
-                letterSpacing: 1,
-            }}
-        >
-        {category.category}
-        </Typography>
-        <Box
-            sx={{
-                display: "inline-flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                gap: 1,
-            }}
-        >
-            {category.items.map((item) => (
-                <Chip
-                    key={item}
-                    label={item}
-                    variant="outlined"
-                    color="primary"
-                    sx={{
-                        fontSize: "1.25rem",
-                        fontWeight: "semi-bold",
-                        padding: 2
-                    }}
-                />
-            ))}
-        </Box>
-    </Box>
-) : null;
-
-OddCategory.propTypes = {
-    category: PropTypes.shape({
-        category: PropTypes.string.isRequired,
-        items: PropTypes.arrayOf(PropTypes.string).isRequired,
-    }),
-};
-
 export default function About() {
-    const numColumns = 2; // Adjust the number of columns as needed
-    const columns = splitSkills(skills, numColumns);    // Split the skills into columns
-    const oddCategory = skills.length % numColumns !== 0 ? skills[skills.length - 1] : null;    //  Get the odd category if it exists
-
     // Handle back button click
     const router = useRouter();
     const handleBackClick = () => {
@@ -223,31 +77,61 @@ export default function About() {
             </Box>
 
             {/* Skills */}
-            <Box sx={{ mb: 6 }}>
-                <Typography variant="h3" gutterBottom>
+            <Box
+                sx={{
+                    mt: 10, // more spacing before footer
+                    mb: 10,
+                    p: 4,
+                    borderRadius: 4,
+                    backgroundColor: "rgba(255, 255, 255, 0.03)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    backdropFilter: "blur(4px)",
+                }}
+            >
+                <Typography
+                    variant="h3"
+                    gutterBottom
+                    sx={{
+                        mb: 4,
+                        fontWeight: "bold",
+                        textAlign: "center",
+                        letterSpacing: 1.5,
+                    }}
+                >
                     My Skills
                 </Typography>
+
                 <Box
                     sx={{
                         display: "flex",
-                        justifyContent: "space-between",
-                        gap: 4,
                         flexWrap: "wrap",
+                        gap: 2,
+                        justifyContent: "center",
                     }}
                 >
-                    {columns.map((column, index) => (
-                        <SkillColumn
-                            key={column[0]?.category} // Use the category of the first skill in the column as the key   //  array indexes as keys in React can lead to problems
-                            categories={column}
-                            align={index % 2 === 0 ? "left" : "right"}
-                    />
+                    {skills.map((skill) => (
+                        <Chip
+                            key={skill}
+                            label={skill}
+                            variant="outlined"
+                            color="primary"
+                            sx={{
+                                fontSize: "1rem",
+                                fontWeight: 500,
+                                px: 2,
+                                py: 1,
+                                borderRadius: "20px",
+                                transition: "all 0.2s ease-in-out",
+                                "&:hover": {
+                                    backgroundColor: "primary.main",
+                                    color: "#fff",
+                                    transform: "translateY(-3px)",
+                                    boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+                                },
+                            }}
+                        />
                     ))}
                 </Box>
-                {oddCategory && (
-                    <Box textAlign="center" sx={{ mt: 4 }}>
-                        <OddCategory category={oddCategory} />
-                    </Box>
-                )}
             </Box>
 
             {/* Footer */}
