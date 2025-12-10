@@ -1,5 +1,3 @@
-import React from "react";
-import PropTypes from "prop-types";
 import { Container, Typography, Box, Avatar, Chip, Button } from "@mui/material";
 import { useRouter } from "next/router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -25,6 +23,9 @@ const skills = [
 ];
 
 export default function About() {
+    const startYear = 2022;
+    const yearsExperience = new Date().getFullYear() - startYear;
+
     // Handle back button click
     const router = useRouter();
     const handleBackClick = () => {
@@ -70,7 +71,7 @@ export default function About() {
                     About Me
                 </Typography>
                 <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                    Senior Cloud Engineer with a passion for all things cloud-based. With over 3
+                    Senior Cloud Engineer with a passion for all things cloud-based. With over {yearsExperience}{" "}
                     years of experience, I specialize in Azure Cloud Engineering and helping businesses achieve scalable
                     and secure cloud solutions. I am also experienced in high-level incident management, ensuring rapid resolution and system reliability in critical situations.
                 </Typography>
