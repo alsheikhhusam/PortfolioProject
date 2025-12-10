@@ -49,7 +49,7 @@ const workExperience = [
 ];
 
 const certificates = [
-  { name: 'CKA Certified Kubernetes Administrator', url: 'https://www.credly.com/earner/earned/badge/559818c8-1cd4-408d-b5ce-240909533396' },
+  { name: 'CKA Certified Kubernetes Administrator', url: 'https://www.credly.com/badges/559818c8-1cd4-408d-b5ce-240909533396' },
   { name: 'AZ-104 Microsoft Azure Administrative Associate', url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/277FEFC03D3706F8?sharingId=39C651685B6997D9' },
   { name: 'AZ-900 Microsoft Azure Fundamentals', url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/2288C16DA2EAD72E?sharingId=39C651685B6997D9' },
   { name: 'AI-900 Microsoft Azure AI Fundamentals', url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/88BD6435182EA6E7?sharingId=39C651685B6997D9' }

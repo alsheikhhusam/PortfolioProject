@@ -6,6 +6,8 @@ const skills = [
     "Azure",
     "Google Cloud Platform",
     "Incident Management",
+    "Release Management",
+    "SRE",
     "Azure DevOps",
     "Docker",
     "Kubernetes",
