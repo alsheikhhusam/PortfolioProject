@@ -55,7 +55,7 @@ export default async function handler(req, res) {
                 <h2>New Portfolio Contact</h2>
                 <p><strong>From:</strong> ${name} &lt;${email}&gt;</p>
                 <p><strong>Message:</strong></p>
-                <p>${message.replace(/\n/g, '<br>')}</p>
+                <p>${message.replaceAll('\n', '<br>')}</p>
             `
         };
 

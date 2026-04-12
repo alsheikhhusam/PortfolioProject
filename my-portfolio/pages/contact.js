@@ -86,17 +86,7 @@ export default function Contact() {
         <Typography variant="h1" sx={{ mb: 1 }}>Get In Touch</Typography>
         <Box sx={{ width: 56, height: 4, backgroundColor: 'primary.main', borderRadius: 2, mb: 3 }} />
         <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-          Have a question or want to work together? Send me a message below or reach out on{' '}
-          <Link
-            href="https://www.linkedin.com/in/husam-alsheikh/"
-            target="_blank"
-            rel="noopener noreferrer"
-            underline="hover"
-            sx={{ color: 'primary.main', fontWeight: 600 }}
-          >
-            LinkedIn
-          </Link>
-          .
+          Looking to connect or get in touch? Reach out via LinkedIn or fill out the contact form below.
         </Typography>
 
         {/* LinkedIn quick link */}
