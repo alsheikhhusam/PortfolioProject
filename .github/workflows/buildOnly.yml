@@ -24,16 +24,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }} # Use PAT from GitHub Secrets
 
-      - name: Set Branch Tag
-        id: branch_tag
-        run: |
-          # Extract and sanitize the branch name (only alphanumeric and dashes)
-          BRANCH_NAME="${GITHUB_REF##*/}"
-
-          SANITIZED_BRANCH_NAME=$(echo "$BRANCH_NAME" | tr -cd '[:alnum:]-')
-
-          echo "branch_tag=$SANITIZED_BRANCH_NAME" >> $GITHUB_OUTPUT
-
       - name: Build Docker Image
         uses: docker/build-push-action@v5
         with:
@@ -43,7 +33,6 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository_owner }}/portfolio:latest
             ghcr.io/${{ github.repository_owner }}/portfolio:${{ github.sha }}
-            ghcr.io/${{ github.repository_owner }}/portfolio:${{ steps.branch_tag.outputs.branch_tag }}
           cache-from: type=gha,mode=max
           cache-to: type=gha,mode=max
 
@@ -51,4 +40,3 @@ jobs:
         run: |
           docker push ghcr.io/${{ github.repository_owner }}/portfolio:latest
           docker push ghcr.io/${{ github.repository_owner }}/portfolio:${{ github.sha }}
-          docker push ghcr.io/${{ github.repository_owner }}/portfolio:${{ steps.branch_tag.outputs.branch_tag }}
