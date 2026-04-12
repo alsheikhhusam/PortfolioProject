@@ -17,6 +17,7 @@
     "@mui/icons-material": "^6.1.4",
     "@mui/material": "^6.1.4",
     "dotenv": "^16.4.5",
+    "motion": "^12.38.0",
     "my-portfolio": "file:",
     "next": "^15.5.3",
     "nodemailer": "^6.9.15",
