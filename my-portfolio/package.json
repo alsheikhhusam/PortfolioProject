@@ -20,8 +20,8 @@
     "motion": "^12.38.0",
     "my-portfolio": "file:",
     "next": "^16.2.3",
-    "nodemailer": "^8.0.5",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "resend": "^6.16.0"
   }
 }
