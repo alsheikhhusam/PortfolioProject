@@ -47,12 +47,33 @@ export default async function handler(req, res) {
             to: [process.env.RECEIVER_EMAIL],
             replyTo: email,
             subject: `New message from ${name} (Portfolio Contact)`,
-            text: `Name: ${name}\nEmail: ${email}\nMessage:\n${message}`,
+            text: `New Portfolio Contact\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n—\nSent from your portfolio contact form`,
             html: `
-                <h2>New Portfolio Contact</h2>
-                <p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p>
-                <p><strong>Message:</strong></p>
-                <p>${escapeHtml(message).replaceAll('\n', '<br>')}</p>
+            <div style="background-color:#0f172a;padding:32px 16px;font-family:'Inter','Roboto',Arial,sans-serif;">
+              <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:560px;margin:0 auto;background-color:#1e293b;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.06);">
+                <tr>
+                  <td style="background:linear-gradient(90deg,#38bdf8,#a78bfa);padding:26px 32px;">
+                    <h1 style="margin:0;color:#0f172a;font-size:20px;font-weight:700;letter-spacing:-0.02em;">New Portfolio Contact</h1>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:32px;">
+                    <p style="margin:0 0 4px;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;">Name</p>
+                    <p style="margin:0 0 22px;color:#f1f5f9;font-size:16px;font-weight:600;">${escapeHtml(name)}</p>
+                    <p style="margin:0 0 4px;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;">Email</p>
+                    <p style="margin:0 0 26px;font-size:16px;"><a href="mailto:${escapeHtml(email)}" style="color:#38bdf8;text-decoration:none;font-weight:600;">${escapeHtml(email)}</a></p>
+                    <p style="margin:0 0 8px;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;">Message</p>
+                    <div style="background-color:#0f172a;border-left:3px solid #38bdf8;border-radius:8px;padding:16px 20px;color:#e2e8f0;font-size:15px;line-height:1.7;">${escapeHtml(message).replaceAll('\n', '<br>')}</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0 32px 28px;">
+                    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:0 0 16px;">
+                    <p style="margin:0;color:#64748b;font-size:12px;text-align:center;">Sent from your portfolio contact form</p>
+                  </td>
+                </tr>
+              </table>
+            </div>
             `
         });
 
