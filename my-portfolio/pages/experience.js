@@ -61,6 +61,10 @@ const certificates = [
     url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/277FEFC03D3706F8?sharingId=39C651685B6997D9',
   },
   {
+    name: 'Terraform Associate 004',
+    url: 'https://www.credly.com/badges/e0a417e3-8b45-4fc6-81e2-032723e0a329',
+  },
+  {
     name: 'AZ-900 Microsoft Azure Fundamentals',
     url: 'https://learn.microsoft.com/api/credentials/share/en-us/HusamAlSheikh-5264/2288C16DA2EAD72E?sharingId=39C651685B6997D9',
   },
